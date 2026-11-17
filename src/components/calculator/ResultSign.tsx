@@ -10,8 +10,9 @@ import type { TcoResult } from '@/domain/tco';
 import { useFormats } from '@/i18n/useFormats';
 import styles from './ResultSign.module.css';
 
+/** Like a motorway sign: keeping the car is straight on, switching is the exit. */
 const ARROWS: Record<Side, string> = {
-  ice: 'M4 16h20M17 8l8 8-8 8',
+  ice: 'M16 28V8M8 15l8-8 8 8',
   ev: 'M8 24L24 8M12 8h12v12',
 };
 
