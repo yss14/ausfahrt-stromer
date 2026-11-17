@@ -1,0 +1,53 @@
+.reset {
+  margin-left: auto;
+}
+
+/* Segmented control styled like a blue direction sign. */
+.modes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border: 2px solid var(--sign);
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--surface);
+}
+
+.mode {
+  display: grid;
+  cursor: pointer;
+}
+
+.mode input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.modeText {
+  padding: 10px 12px;
+  font-size: 14px;
+  color: var(--ink-2);
+  display: grid;
+  gap: 2px;
+}
+
+.modeText b {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 16px;
+  color: var(--ink);
+}
+
+.mode input:checked + .modeText {
+  background: var(--sign);
+  color: color-mix(in srgb, var(--sign-ink) 88%, transparent);
+}
+
+.mode input:checked + .modeText b {
+  color: var(--sign-ink);
+}
+
+.mode input:focus-visible + .modeText {
+  outline: 3px solid var(--yellow);
+  outline-offset: -5px;
+}

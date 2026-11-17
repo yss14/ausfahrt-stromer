@@ -1,0 +1,53 @@
+.bar {
+  display: none;
+}
+
+@media (max-width: 920px) {
+  .bar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 5;
+    background: var(--sign);
+    color: var(--sign-ink);
+    box-shadow:
+      inset 0 3px 0 var(--sign),
+      inset 0 5px 0 var(--sign-ink);
+    padding: 12px max(16px, env(safe-area-inset-right, 0px)) calc(10px + env(safe-area-inset-bottom, 0px))
+      max(16px, env(safe-area-inset-left, 0px));
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    justify-content: space-between;
+    font-variant-numeric: tabular-nums;
+    font-size: 14px;
+    transition: transform 0.2s;
+  }
+
+  .hidden {
+    transform: translateY(110%);
+  }
+
+  .bar b {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 18px;
+  }
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.diff {
+  opacity: 0.85;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bar {
+    transition: none;
+  }
+}

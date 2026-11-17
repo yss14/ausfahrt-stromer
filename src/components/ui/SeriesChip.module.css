@@ -1,0 +1,27 @@
+/* A white tag with a coloured stripe, so the blue EV series stays visible on the blue sign. */
+.chip {
+  width: 20px;
+  height: 13px;
+  border-radius: 3px;
+  flex: none;
+  background: var(--sign-ink);
+  position: relative;
+}
+
+.chip::after {
+  content: '';
+  position: absolute;
+  left: 3px;
+  right: 3px;
+  top: 4.5px;
+  height: 4px;
+  border-radius: 2px;
+}
+
+.ice::after {
+  background: var(--ice);
+}
+
+.ev::after {
+  background: var(--ev);
+}

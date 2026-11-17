@@ -1,0 +1,29 @@
+.helper {
+  border: 1px dashed var(--line);
+  border-radius: 8px;
+  padding: 8px 12px;
+}
+
+.helper summary {
+  cursor: pointer;
+  font-size: 13.5px;
+  color: var(--accent);
+  font-weight: 500;
+}
+
+.helper[open] summary {
+  margin-bottom: 10px;
+}
+
+.result {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.amount {
+  font-size: 17px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}

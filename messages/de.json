@@ -1,0 +1,284 @@
+{
+  "meta": {
+    "title": "Ausfahrt Stromer: Stromer oder Verbrenner?",
+    "description": "Gesamtkosten-Rechner für Deutschland: Was kostet ein gebrauchtes E-Auto im Vergleich zum Verbrenner wirklich? Wertverlust, Sprit und Strom, Kfz-Steuer, THG-Quote, Versicherung und Wartung."
+  },
+  "header": {
+    "kicker": "Ausfahrt Stromer · Gebrauchtwagen · Gesamtkosten · Deutschland, Stand 17. 11. 2026",
+    "title": "Stromer oder Verbrenner?",
+    "lead": "Rechne aus, was dich ein gebrauchtes E-Auto im Vergleich zum Verbrenner über die nächsten Jahre wirklich kostet: Wertverlust, Sprit und Strom, Kfz-Steuer, THG-Quote, Versicherung, Wartung und Reifen. Die Startwerte sind ein Beispiel mit Marktpreisen von November 2026. Trag deine eigenen Zahlen ein."
+  },
+  "units": {
+    "eur": "€",
+    "eurPerYear": "€/Jahr",
+    "eurOnce": "€ einmalig",
+    "pct": "%",
+    "pctPerYear": "% p.a.",
+    "litersPer100Km": "l/100 km",
+    "eurPerLiter": "€/l",
+    "kwhPer100Km": "kWh/100 km",
+    "ctPerKwh": "ct/kWh",
+    "kg": "kg",
+    "ccm": "cm³",
+    "gPerKm": "g/km"
+  },
+  "format": {
+    "years": "{years, plural, one {# Jahr} other {# Jahre}}",
+    "km": "{km} km",
+    "percent": "{value} %"
+  },
+  "scenario": {
+    "heading": "Szenario",
+    "reset": "Beispielwerte laden",
+    "modeLabel": "Ausgangslage",
+    "modes": {
+      "switch": {
+        "title": "Umsteigen?",
+        "description": "Ich habe einen Verbrenner: behalten oder gegen ein gebrauchtes E-Auto tauschen"
+      },
+      "buy": {
+        "title": "Neu kaufen",
+        "description": "Ich kaufe gebraucht: Verbrenner oder E-Auto"
+      }
+    },
+    "years": "Betrachtungszeitraum",
+    "kmPerYear": "Fahrleistung pro Jahr",
+    "startYear": "Startjahr",
+    "startYearHint": "Wichtig für die Kfz-Steuer-Befreiung",
+    "interestRate": "Zins bzw. entgangene Rendite",
+    "interestRateHint": "Auf das im Auto gebundene Geld"
+  },
+  "residual": {
+    "label": "Restwert Anfang {year} (leer = automatisch)",
+    "estimated": "Geschätzt: <b>{value}</b> bei −{pct} % pro Jahr",
+    "overridden": "Automatisch wären es {value}"
+  },
+  "ice": {
+    "heading": "Verbrenner",
+    "sub": "{mode, select, buy {gebraucht kaufen} other {dein aktuelles Auto}}",
+    "fuel": "Kraftstoff",
+    "fuels": {
+      "petrol": "Benzin (Super E10)",
+      "diesel": "Diesel"
+    },
+    "consumption": "Verbrauch",
+    "fuelPrice": "Spritpreis",
+    "fuelPriceHint": "ADAC-Schnitt 11.11.2026: E10 1,978 €, Diesel 2,217 €",
+    "fuelPriceGrowth": "Spritpreis-Anstieg",
+    "fuelPriceGrowthHint": "CO₂-Preis 2027 bei 55–65 €/t, ab 2028 EU-ETS2",
+    "valueGroup": "Wert & Restwert",
+    "value": "{mode, select, buy {Kaufpreis} other {Heutiger Verkaufswert (optional)}}",
+    "valueHint": "{mode, select, buy {Preis des gebrauchten Verbrenners} other {Was du beim Umstieg für ihn bekommst. 0 = nicht anrechnen}}",
+    "depreciation": "Wertverlust",
+    "depreciationHint": "Ältere Verbrenner: oft 7–10 %",
+    "runningGroup": "Laufende Kosten",
+    "tax": "Kfz-Steuer",
+    "insurance": "Versicherung (KH + Kasko)",
+    "maintenance": "Wartung & Reparaturen",
+    "maintenanceHint": "Inspektion, Öl, Bremsen, Auspuff, Verschleiß",
+    "tires": "Reifen",
+    "inspection": "HU + AU",
+    "inspectionHint": "ca. 140 € alle 2 Jahre",
+    "oneOffRepair": "Absehbare große Reparatur",
+    "oneOffRepairHint": "z. B. Zahnriemen, Kupplung, DPF",
+    "purchaseFees": "Kaufnebenkosten",
+    "purchaseFeesHint": "Zulassung, Kennzeichen, Gutachten"
+  },
+  "taxHelper": {
+    "summary": "Kfz-Steuer aus Hubraum und CO₂ berechnen",
+    "period": "Erstzulassung",
+    "periods": {
+      "from2021": "ab 2021 (WLTP, gestaffelt)",
+      "2014to2020": "2014 – 2020",
+      "2012to2013": "2012 – 2013",
+      "2009to2011": "07/2009 – 2011",
+      "before2009": "vor 07/2009 (Euro 4+)"
+    },
+    "displacement": "Hubraum",
+    "co2": "CO₂-Ausstoß (Fahrzeugschein Feld V.7)",
+    "result": "Ergebnis",
+    "perYear": "{amount} / Jahr",
+    "apply": "Übernehmen"
+  },
+  "ev": {
+    "heading": "E-Auto",
+    "sub": "gebraucht",
+    "price": "Kaufpreis",
+    "firstRegistration": "Erstzulassung (Jahr)",
+    "exemptionExpired": "Steuerbefreiung abgelaufen ({year})",
+    "exemptionActive": "Steuerfrei bis 31.12.{year}: <b>{free} von {years}</b> Jahren",
+    "depreciation": "Wertverlust",
+    "depreciationHint": "Studien: 10–14 % in den ersten Jahren",
+    "chargingGroup": "Strom & Laden",
+    "consumption": "Verbrauch (Bordcomputer)",
+    "consumptionHint": "Jahresschnitt inkl. Winter",
+    "chargingLoss": "Ladeverluste",
+    "chargingLossHint": "ADAC: Wallbox 5–10 %, Steckdose bis 30 %",
+    "homeShare": "Laden zu Hause / beim Arbeitgeber",
+    "dcShare": "Vom Rest am Schnelllader (DC)",
+    "mix": {
+      "home": "Zuhause {pct} %",
+      "ac": "AC öffentlich {pct} %",
+      "dc": "DC schnell {pct} %",
+      "average": "Ø <b>{price} ct/kWh</b>"
+    },
+    "homePrice": "Strompreis zu Hause",
+    "homePriceHint": "BDEW-Schnitt 37,3 ct; mit PV-Strom deutlich weniger",
+    "acPrice": "Öffentlich AC",
+    "dcPrice": "Schnelllader DC",
+    "electricityPriceGrowth": "Strompreis-Anstieg",
+    "costsGroup": "Steuer, THG-Quote & laufende Kosten",
+    "grossWeight": "Zul. Gesamtgewicht (Feld F.2)",
+    "grossWeightHint": "Danach <b>{amount}</b> pro Jahr",
+    "thgPremium": "THG-Prämie",
+    "thgPremiumHint": "Markt 2026: meist 250–350 €, nur für den Halter",
+    "insurance": "Versicherung (KH + Kasko)",
+    "insuranceHint": "Verivox 2026: in ca. der Hälfte der Tarife teurer",
+    "maintenance": "Wartung & Reparaturen",
+    "maintenanceHint": "ADAC: Inspektion rund ⅓ günstiger",
+    "tires": "Reifen",
+    "tiresHint": "Mehrgewicht erhöht den Abrieb",
+    "inspection": "HU (keine AU nötig)",
+    "otherBenefits": "Sonstige Vorteile",
+    "otherBenefitsHint": "Gratis-Parken, Laden beim Arbeitgeber …",
+    "batteryReserve": "Rücklage Batterierisiko",
+    "batteryReserveHint": "Sinnvoll, wenn die Akku-Garantie endet",
+    "oneOffGroup": "Einmalkosten beim Umstieg",
+    "wallbox": "Wallbox inkl. Installation",
+    "wallboxHint": "0, wenn vorhanden oder nicht nötig",
+    "purchaseFees": "Kaufnebenkosten",
+    "purchaseFeesHint": "Zulassung, Kennzeichen, Batteriezertifikat"
+  },
+  "result": {
+    "regionLabel": "Ergebnis",
+    "signTitle": "Gesamtkosten über {years, plural, one {# Jahr} other {# Jahre}}",
+    "kmPerYear": "{km} km/Jahr",
+    "iceName": "{mode, select, buy {Verbrenner} other {Verbrenner behalten}}",
+    "evName": "{mode, select, buy {E-Auto} other {Umstieg auf E-Auto}}",
+    "perMonthAndKm": "{perMonth} / Monat · {ctPerKm} ct/km",
+    "cheaper": "günstiger"
+  },
+  "verdict": {
+    "span": "{years, plural, one {im ersten Jahr} other {über # Jahre}}",
+    "tie": "Praktisch gleichauf {span}",
+    "tieSub": "Hier entscheiden eher Fahrspaß, Ladekomfort und Klima als das Geld.",
+    "evCheaper": "{mode, select, buy {Das E-Auto} other {Der Umstieg}} spart dir {amount} {span}",
+    "evCheaperSub": "Das sind {perMonth} pro Monat weniger als mit dem Verbrenner.",
+    "iceCheaper": "{mode, select, buy {Der Verbrenner} other {Den Verbrenner behalten}} ist {amount} günstiger {span}",
+    "iceCheaperSub": "Das E-Auto kostet dich {perMonth} pro Monat mehr."
+  },
+  "facts": {
+    "breakEvenKm": "Lohnt sich ab",
+    "breakEvenKmAlways": "jeder Strecke",
+    "breakEvenKmAlwaysSub": "E-Auto ist schon ohne Fahren günstiger",
+    "breakEvenKmTooHigh": "> {km} km",
+    "breakEvenKmTooHighSub": "pro Jahr, praktisch nie",
+    "breakEvenKmAt": "{km} km",
+    "breakEvenKmAtSub": "pro Jahr, mit diesen Annahmen",
+    "breakEvenKmNever": "nie",
+    "breakEvenKmNeverSub": "Strom kostet hier pro km mehr als Sprit",
+    "breakEvenYear": "Gleichstand",
+    "breakEvenYearAt": "nach {years} Jahren",
+    "breakEvenYearAtSub": "ca. {km} km",
+    "breakEvenYearImmediately": "sofort",
+    "breakEvenYearImmediatelySub": "E-Auto liegt durchgehend vorn",
+    "breakEvenYearNotWithin": "nicht in {years} J.",
+    "breakEvenYearEvBehind": "E-Auto holt den Rückstand nicht auf",
+    "breakEvenYearLeadShrinks": "Vorsprung schmilzt",
+    "cash": "Geld nötig heute",
+    "cashBasis": {
+      "buyBoth": "mehr für das E-Auto als für den Verbrenner",
+      "afterTradeIn": "Zuzahlung nach Verkauf des Verbrenners",
+      "evOnly": "für E-Auto, Wallbox und Nebenkosten"
+    }
+  },
+  "chart": {
+    "title": "Kosten, wenn du nach n Jahren verkaufst",
+    "ice": "Verbrenner",
+    "ev": "E-Auto",
+    "ariaLabel": "Kumulierte Kosten Verbrenner und E-Auto über {years} Jahre",
+    "note": "Jeder Punkt zeigt die bis dahin aufgelaufenen Kosten inklusive Wertverlust. Wo sich die Linien kreuzen, holt das E-Auto den höheren Einstieg wieder rein.",
+    "today": "heute",
+    "yearTick": "{years} J.",
+    "thousandsEur": "{value} T€",
+    "eur": "{value} €",
+    "breakEven": "Gleichstand",
+    "tooltipToday": "Heute (Einmalkosten)",
+    "tooltipSoldAfter": "Verkauf nach {years, plural, one {# Jahr} other {# Jahren}}",
+    "iceAhead": "Verbrenner vorn",
+    "evAhead": "E-Auto vorn",
+    "even": "gleichauf"
+  },
+  "breakdown": {
+    "title": "Aufschlüsselung über {years, plural, one {# Jahr} other {# Jahre}}",
+    "item": "Posten",
+    "ice": "Verbrenner",
+    "ev": "E-Auto",
+    "difference": "Differenz",
+    "total": "Gesamt",
+    "categories": {
+      "depreciation": "Wertverlust",
+      "interest": "Zinsen auf gebundenes Kapital",
+      "energy": "Sprit / Strom",
+      "tax": "Kfz-Steuer",
+      "insurance": "Versicherung",
+      "maintenance": "Wartung & Reparaturen",
+      "tires": "Reifen",
+      "inspection": "HU / AU",
+      "batteryReserve": "Rücklage Batterie",
+      "oneOff": "Einmalkosten",
+      "thgPremium": "THG-Prämie",
+      "otherBenefits": "Sonstige Vorteile"
+    },
+    "yearlySummary": "Jahreswerte als Tabelle",
+    "soldAtStartOf": "Verkauf Anfang",
+    "yearRow": "{year} (nach {years} J.)",
+    "co2": "CO₂ {span}: Verbrenner ca. {ice} t aus dem Auspuff, E-Auto ca. {ev} t beim deutschen Strommix ({gridFactor} kg/kWh). Mit Ökostrom oder PV entsprechend weniger."
+  },
+  "mobileBar": {
+    "tie": "gleichauf",
+    "evCheaper": "E-Auto −{amount}",
+    "iceCheaper": "Verbrenner −{amount}"
+  },
+  "notes": {
+    "label": "Hinweise und Quellen",
+    "howItWorks": {
+      "title": "So rechnet die Seite",
+      "items": {
+        "tco": "Verglichen werden die Gesamtkosten (TCO) über den Zeitraum. Der Wertverlust ist Startwert minus Restwert am Ende.",
+        "tradeIn": "Beim Umstieg zählt der heutige Verkaufswert deines Verbrenners als Startwert der Option „behalten“. Verkaufst du ihn, fließt das Geld in den E-Auto-Kauf. Beide Sichtweisen ergeben dieselbe Differenz.",
+        "residual": "Lässt du einen Restwert leer, wird er aus dem jährlichen Wertverlust geschätzt.",
+        "interest": "Kapitalkosten: Zins auf den jeweils im Auto gebundenen Wert, Jahr für Jahr.",
+        "taxExemption": "Die Kfz-Steuer-Befreiung gilt 10 Jahre ab Erstzulassung, längstens bis 31.12.2035, und geht auf den Käufer über. Danach zahlt ein E-Auto die halbierte gewichtsbasierte Steuer.",
+        "oneOffs": "Einmalige Reparaturen und Einmalkosten werden im ersten Jahr angesetzt."
+      }
+    },
+    "checklist": {
+      "title": "Beim gebrauchten E-Auto prüfen",
+      "items": {
+        "soh": "<b>Batteriezertifikat (SoH)</b>: ist inzwischen der wichtigste Faktor für Preis und Restwert. Die meisten Akkus verlieren nur rund 2 % Kapazität pro Jahr.",
+        "warranty": "<b>Akku-Garantie</b>: meist 8 Jahre bzw. 160.000 km, oft ab 70 % SoH. Danach eine Rücklage einplanen.",
+        "registration": "<b>Erstzulassung</b>: bestimmt, wie lange die Kfz-Steuer-Befreiung noch läuft.",
+        "heatPump": "<b>Wärmepumpe und Ladeleistung</b>: bestimmen Winterverbrauch und Zeit am Schnelllader.",
+        "insurance": "<b>Versicherung vorab vergleichen</b>: die Typklasse entscheidet, nicht der Antrieb allein."
+      }
+    },
+    "sources": {
+      "title": "Quellen der Startwerte",
+      "items": {
+        "adacFuel": "ADAC: Spritpreise (11.11.2026)",
+        "bdewPower": "BDEW: Strompreisanalyse 10/2026",
+        "autobildCharging": "AUTO BILD: Ladepreise AC/DC",
+        "zdfTaxExemption": "ZDF: Kfz-Steuerbefreiung bis 2035",
+        "finanztipThg": "Finanztip: THG-Quote 2026",
+        "adacInspection": "ADAC: Inspektionskosten E-Auto vs. Verbrenner",
+        "verivoxInsurance": "Autohaus/Verivox: Versicherung E-Auto",
+        "adacChargingLoss": "ADAC: Ladeverluste",
+        "fraunhoferResidual": "Fraunhofer ISI: Restwerte gebrauchter E-Autos",
+        "vmfDepreciation": "VMF/Deloitte: Wertverlust BEV vs. Verbrenner",
+        "carlyBattery": "Carly/TÜV Nord & Geotab: Batteriezustand",
+        "co2Price": "CO₂-Preis 2027"
+      }
+    }
+  }
+}

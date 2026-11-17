@@ -1,0 +1,23 @@
+.verdict {
+  background: var(--yellow);
+  color: var(--yellow-ink);
+  border-radius: 10px;
+  padding: 13px 16px;
+  display: grid;
+  gap: 3px;
+  box-shadow:
+    inset 0 0 0 3px var(--yellow),
+    inset 0 0 0 5px var(--yellow-ink);
+}
+
+.main {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 1.2;
+  text-wrap: balance;
+}
+
+.sub {
+  font-size: 14px;
+}

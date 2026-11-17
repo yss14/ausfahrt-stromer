@@ -1,0 +1,102 @@
+.head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 6px 14px;
+  align-items: baseline;
+}
+
+.legend {
+  display: flex;
+  gap: 14px;
+  font-size: 13px;
+  color: var(--ink-2);
+}
+
+.legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.legend i {
+  width: 14px;
+  height: 3px;
+  border-radius: 2px;
+  display: inline-block;
+}
+
+.box {
+  position: relative;
+  width: 100%;
+}
+
+.box svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.axis {
+  font-size: 11.5px;
+  fill: var(--ink-3);
+}
+
+.marker {
+  font-size: 12px;
+  font-weight: 600;
+  fill: var(--ink);
+}
+
+.endLabel {
+  font-size: 12px;
+  fill: var(--ink-2);
+}
+
+.hitArea {
+  fill: transparent;
+  cursor: crosshair;
+}
+
+.tip {
+  position: absolute;
+  top: 6px;
+  pointer-events: none;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  padding: 8px 10px;
+  font-size: 13px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+  min-width: 170px;
+  display: grid;
+  gap: 3px;
+  z-index: 2;
+}
+
+.tipHead {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.tipRow {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  color: var(--ink-2);
+  font-variant-numeric: tabular-nums;
+}
+
+.tipRow i {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 6px;
+}
+
+.note {
+  font-size: 12.5px;
+  color: var(--ink-3);
+}

@@ -1,0 +1,10 @@
+.yearly summary {
+  cursor: pointer;
+  color: var(--accent);
+  font-size: 13.5px;
+  font-weight: 500;
+}
+
+.yearly[open] summary {
+  margin-bottom: 8px;
+}
