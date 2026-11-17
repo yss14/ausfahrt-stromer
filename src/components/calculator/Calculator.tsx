@@ -15,6 +15,7 @@ import { KeyFacts } from './KeyFacts';
 import { MobileResultBar } from './MobileResultBar';
 import { ResultSign } from './ResultSign';
 import { ScenarioSection } from './ScenarioSection';
+import { ShareLink } from './ShareLink';
 import { usePersistedInputs } from './usePersistedInputs';
 import { VerdictSign } from './VerdictSign';
 
@@ -58,6 +59,7 @@ export function Calculator() {
             <ResultSign result={result} scenario={scenario} verdict={outcome} />
             <VerdictSign verdict={outcome} mode={scenario.mode} years={result.years} />
           </div>
+          <ShareLink inputs={inputs} />
           <KeyFacts inputs={inputs} result={result} />
           <CostChart result={result} />
           <Breakdown inputs={inputs} result={result} />

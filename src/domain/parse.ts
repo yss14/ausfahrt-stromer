@@ -7,7 +7,7 @@ const ENUM_VALUES: Partial<Record<string, readonly string[]>> = {
   period: ICE_TAX_PERIODS,
 };
 
-const isRecord = (value: unknown): value is Record<string, unknown> =>
+export const isRecord = (value: unknown): value is Record<string, unknown> =>
   typeof value === 'object' && value !== null && !Array.isArray(value);
 
 const isFiniteNumber = (value: unknown): value is number =>

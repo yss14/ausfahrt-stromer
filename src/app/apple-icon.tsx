@@ -1,17 +1,24 @@
 import { ImageResponse } from 'next/og';
-import { THEME_COLOR } from '@/config/site';
+import { BrandMark } from '@/components/brand/BrandMark';
+import { BRAND_COLOR } from '@/config/site';
 
 export const size = { width: 180, height: 180 };
 export const contentType = 'image/png';
 
-/** The exit-sign arrow from icon.svg, full bleed because iOS rounds the corners itself. */
+/** Full bleed without the sign frame, because iOS rounds the corners itself. */
 export default function AppleIcon() {
   return new ImageResponse(
-    <div style={{ display: 'flex', width: '100%', height: '100%', background: THEME_COLOR.light }}>
-      <svg width="180" height="180" viewBox="0 0 32 32">
-        <rect x="2.5" y="2.5" width="27" height="27" rx="4" fill="none" stroke="#fff" strokeWidth="1.5" />
-        <path d="M9 23L21 11M13 10h9v9" fill="none" stroke="#fff" strokeWidth="3" strokeLinecap="square" />
-      </svg>
+    <div
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: '100%',
+        height: '100%',
+        background: BRAND_COLOR.sign,
+      }}
+    >
+      <BrandMark size={150} />
     </div>,
     size,
   );

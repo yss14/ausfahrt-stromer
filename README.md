@@ -11,6 +11,7 @@ Live: https://ausfahrt-stromer.vercel.app
 - German vehicle tax rules: displacement and CO₂ tax for combustion cars, the electric car exemption that ends in 2035 at the latest, and the halved weight-based tax after it.
 - A chart of the cumulative cost if you sell after n years, with the break-even point marked.
 - Inputs are saved in your browser's `localStorage`. The app sends nothing to a server.
+- A share link carries the inputs that differ from the defaults, base64url-encoded in the URL fragment. The fragment never reaches the server.
 
 ## Run it locally
 
@@ -37,6 +38,7 @@ The cost model is plain TypeScript in `src/domain/`, with no React, and Vitest c
 - `src/domain/defaults.ts` holds the default inputs and the list of sources behind them.
 - `src/domain/tco.ts` computes the total cost per option and year.
 - `src/domain/tax.ts` holds the vehicle tax tables.
+- `src/domain/shareLink.ts` encodes and decodes share links.
 - `src/domain/insights.ts` derives the break-even mileage, the break-even year, the cash needed today, CO₂, and the verdict.
 
 ## Deploy

@@ -4,7 +4,8 @@ import { notFound } from 'next/navigation';
 import { ImageResponse } from 'next/og';
 import { hasLocale } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
-import { THEME_COLOR } from '@/config/site';
+import { BrandMark } from '@/components/brand/BrandMark';
+import { BRAND_COLOR } from '@/config/site';
 import { routing } from '@/i18n/routing';
 
 export function generateStaticParams() {
@@ -14,7 +15,6 @@ export function generateStaticParams() {
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
-const SIGN_YELLOW = '#f2b705';
 const fontFile = (weight: 600 | 800) =>
   readFile(join(process.cwd(), `src/assets/fonts/Overpass-${weight}.ttf`));
 
@@ -31,7 +31,7 @@ export default async function OpengraphImage({ params }: { params: Promise<{ loc
         width: '100%',
         height: '100%',
         padding: 28,
-        background: THEME_COLOR.light,
+        background: BRAND_COLOR.sign,
         fontFamily: 'Overpass',
       }}
     >
@@ -48,15 +48,7 @@ export default async function OpengraphImage({ params }: { params: Promise<{ loc
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
-          <svg width="64" height="64" viewBox="0 0 32 32">
-            <path
-              d="M9 23L21 11M13 10h9v9"
-              fill="none"
-              stroke="#fff"
-              strokeWidth="3.5"
-              strokeLinecap="square"
-            />
-          </svg>
+          <BrandMark size={72} />
           <span style={{ fontSize: 34, fontWeight: 800, letterSpacing: 1, textTransform: 'uppercase' }}>
             {t('siteName')}
           </span>
@@ -66,7 +58,7 @@ export default async function OpengraphImage({ params }: { params: Promise<{ loc
             style={{
               fontSize: 24,
               fontWeight: 600,
-              color: SIGN_YELLOW,
+              color: BRAND_COLOR.yellow,
               letterSpacing: 2,
               textTransform: 'uppercase',
             }}

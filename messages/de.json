@@ -165,6 +165,12 @@
     "perMonthAndKm": "{perMonth} / Monat · {ctPerKm} ct/km",
     "cheaper": "günstiger"
   },
+  "share": {
+    "button": "Link teilen",
+    "hint": "Der Link enthält deine Eingaben.",
+    "copied": "Link kopiert.",
+    "inAddressBar": "Kopieren ging nicht. Der Link steht jetzt in der Adresszeile."
+  },
   "verdict": {
     "span": "{years, plural, one {im ersten Jahr} other {über # Jahre}}",
     "tie": "Praktisch gleichauf {span}",
