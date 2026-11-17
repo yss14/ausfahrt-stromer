@@ -13,7 +13,7 @@
   "header": {
     "kicker": "Ausfahrt Stromer · Gebrauchtwagen · Gesamtkosten · Deutschland, Stand 17. 11. 2026",
     "title": "Gebrauchtes E-Auto oder Verbrenner?",
-    "lead": "Rechne aus, was dich ein gebrauchtes E-Auto im Vergleich zum Verbrenner über die nächsten Jahre wirklich kostet: Wertverlust, Sprit und Strom, Kfz-Steuer, THG-Quote, Versicherung, Wartung und Reifen. Die Startwerte sind ein Beispiel mit Marktpreisen von November 2026. Trag deine eigenen Zahlen ein."
+    "lead": "Rechne aus, was dich ein gebrauchtes E-Auto im Vergleich zum Verbrenner über die nächsten Jahre wirklich kostet: Wertverlust, Sprit und Strom, Kfz-Steuer, THG-Quote, Versicherung, Wartung und Reifen. Die Startwerte sind ein Beispiel mit Marktpreisen von November 2026. Trag deine eigenen Zahlen ein. Deine Eingaben bleiben in diesem Browser gespeichert, auch wenn du die Seite schließt."
   },
   "units": {
     "eur": "€",
@@ -32,7 +32,8 @@
   "format": {
     "years": "{years, plural, one {# Jahr} other {# Jahre}}",
     "km": "{km} km",
-    "percent": "{value} %"
+    "percent": "{value} %",
+    "ct": "{value} ct"
   },
   "scenario": {
     "heading": "Szenario",
@@ -53,7 +54,7 @@
     "startYear": "Startjahr",
     "startYearHint": "Wichtig für die Kfz-Steuer-Befreiung",
     "interestRate": "Zins bzw. entgangene Rendite",
-    "interestRateHint": "Auf das im Auto gebundene Geld"
+    "interestRateHint": "Was das im Auto gebundene Geld sonst bringen würde, z. B. auf dem Tagesgeldkonto"
   },
   "residual": {
     "label": "Restwert Anfang {year} (leer = automatisch)",
@@ -89,7 +90,8 @@
     "oneOffRepair": "Absehbare große Reparatur",
     "oneOffRepairHint": "z. B. Zahnriemen, Kupplung, DPF",
     "purchaseFees": "Kaufnebenkosten",
-    "purchaseFeesHint": "Zulassung, Kennzeichen, Gutachten"
+    "purchaseFeesHint": "Zulassung, Kennzeichen, Gutachten",
+    "fuelPriceTrendTitle": "Spritpreis pro Liter"
   },
   "taxHelper": {
     "summary": "Kfz-Steuer aus Hubraum und CO₂ berechnen",
@@ -154,7 +156,8 @@
     "wallbox": "Wallbox inkl. Installation",
     "wallboxHint": "0, wenn vorhanden oder nicht nötig",
     "purchaseFees": "Kaufnebenkosten",
-    "purchaseFeesHint": "Zulassung, Kennzeichen, Batteriezertifikat"
+    "purchaseFeesHint": "Zulassung, Kennzeichen, Batteriezertifikat",
+    "electricityPriceTrendTitle": "Strompreis im Lademix pro kWh"
   },
   "result": {
     "regionLabel": "Ergebnis",
@@ -170,6 +173,10 @@
     "hint": "Der Link enthält deine Eingaben.",
     "copied": "Link kopiert.",
     "inAddressBar": "Kopieren ging nicht. Der Link steht jetzt in der Adresszeile."
+  },
+  "priceTrend": {
+    "trigger": "Preisverlauf ansehen",
+    "change": "{change} bis {year}"
   },
   "verdict": {
     "span": "{years, plural, one {im ersten Jahr} other {über # Jahre}}",

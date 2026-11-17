@@ -76,7 +76,7 @@ export function EvSection({ ev, scenario, result, set }: EvSectionProps) {
         />
       </FieldGroup>
 
-      <EvChargingFields ev={ev} mix={result.mix} set={set} />
+      <EvChargingFields ev={ev} mix={result.mix} scenario={scenario} set={set} />
       <EvRunningCostFields ev={ev} taxAfterExemptionEur={result.evTaxAfterExemption} set={set} />
 
       <FieldGroup title={t('oneOffGroup')}>

@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { DEFAULT_INPUTS } from './defaults';
 import { buyMode, dieselLongRun } from './scenarios.fixture';
-import { computeTco } from './tco';
+import { computeTco, priceTrajectory } from './tco';
 
 describe('computeTco', () => {
   it('matches the reference totals for the default switch scenario', () => {
@@ -71,6 +71,10 @@ describe('computeTco', () => {
     const { ev } = computeTco(worthless);
     expect(ev.forecast[0] - ev.curve[5]).toBeCloseTo(2362.761);
     expect(ev.forecast[1] - ev.forecast[0]).toBeCloseTo(2419.011);
+  });
+
+  it('grows prices by a fixed percentage a year', () => {
+    expect(priceTrajectory(2, 5, 3).map((price) => price.toFixed(4))).toEqual(['2.0000', '2.1000', '2.2050']);
   });
 
   it('splits charging between home, public AC and DC', () => {

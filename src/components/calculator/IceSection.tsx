@@ -8,7 +8,10 @@ import block from '@/components/ui/Block.module.css';
 import { FieldGroup } from '@/components/ui/FieldGroup';
 import { Swatch } from '@/components/ui/Swatch';
 import { FUELS, type Fuel, type IceInputs, type ScenarioInputs } from '@/domain/inputs';
+import { priceTrajectory } from '@/domain/tco';
+import { useFormats } from '@/i18n/useFormats';
 import { IceRunningCostFields } from './IceRunningCostFields';
+import { PriceTrend } from './PriceTrend';
 import type { GroupSetter, NumericKey } from './inputsReducer';
 import { ResidualField } from './ResidualField';
 
@@ -33,6 +36,7 @@ export function IceSection({
   const tUnits = useTranslations('units');
   const headingId = useId();
   const { mode } = scenario;
+  const f = useFormats();
   const bind = (key: NumericKey<IceInputs>) => ({
     value: ice[key],
     onChange: (value: number) => set(key, value),
@@ -71,7 +75,18 @@ export function IceSection({
         />
         <NumberField
           label={t('fuelPriceGrowth')}
-          hint={t('fuelPriceGrowthHint')}
+          hint={
+            <>
+              {t('fuelPriceGrowthHint')}
+              <PriceTrend
+                title={t('fuelPriceTrendTitle')}
+                prices={priceTrajectory(ice.fuelPriceEurPerL, ice.fuelPriceGrowthPct, scenario.years)}
+                startYear={scenario.startYear}
+                formatPrice={f.eurCents}
+                color="var(--ice)"
+              />
+            </>
+          }
           unit={tUnits('pctPerYear')}
           {...bind('fuelPriceGrowthPct')}
           min={-5}

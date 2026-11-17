@@ -68,6 +68,11 @@ export function chargingMix(ev: EvInputs): ChargingMix {
   return { home, ac, dc, avgPriceEurPerKwh };
 }
 
+/** Price in each year of the period, growing by a fixed percentage from the start price. */
+export function priceTrajectory(startPrice: number, growthPct: number, years: number): number[] {
+  return Array.from({ length: years }, (_, i) => startPrice * Math.pow(1 + growthPct / 100, i));
+}
+
 type ValueTrajectory = { start: number; residual: number; autoResidual: number; path: number[] };
 
 /**
@@ -153,6 +158,9 @@ export function computeTco(inputs: CalculatorInputs, kmOverride?: number): TcoRe
   const evTaxAfterExemption = evAnnualTaxAfterExemption(ev.grossWeightKg);
   const litersPerYear = (km * ice.consumptionLPer100) / 100;
   const kwhPerYear = ((km * ev.consumptionKwhPer100) / 100) * (1 + ev.chargingLossPct / 100);
+  const horizon = years + FORECAST_YEARS;
+  const fuelPrices = priceTrajectory(ice.fuelPriceEurPerL, ice.fuelPriceGrowthPct, horizon);
+  const powerPrices = priceTrajectory(mix.avgPriceEurPerKwh, ev.electricityPriceGrowthPct, horizon);
 
   const iceValue = valueTrajectory(ice.valueEur, ice.depreciationPct, ice.residualOverrideEur, years);
   const evValue = valueTrajectory(ev.priceEur, ev.depreciationPct, ev.residualOverrideEur, years);
@@ -163,7 +171,7 @@ export function computeTco(inputs: CalculatorInputs, kmOverride?: number): TcoRe
     years,
     (i) => ({
       interest: rate * iceValue.path[i],
-      energy: litersPerYear * ice.fuelPriceEurPerL * Math.pow(1 + ice.fuelPriceGrowthPct / 100, i),
+      energy: litersPerYear * fuelPrices[i],
       tax: ice.annualTaxEur,
       insurance: ice.insuranceEur,
       maintenance: ice.maintenanceEur,
@@ -177,7 +185,7 @@ export function computeTco(inputs: CalculatorInputs, kmOverride?: number): TcoRe
 
   const evSide = buildSide(evValue, ev.wallboxEur + ev.purchaseFeesEur, years, (i) => ({
     interest: rate * evValue.path[i],
-    energy: kwhPerYear * mix.avgPriceEurPerKwh * Math.pow(1 + ev.electricityPriceGrowthPct / 100, i),
+    energy: kwhPerYear * powerPrices[i],
     tax: scenario.startYear + i > evExemptUntilYear ? evTaxAfterExemption : 0,
     insurance: ev.insuranceEur,
     maintenance: ev.maintenanceEur,

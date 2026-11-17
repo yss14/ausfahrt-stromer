@@ -4,17 +4,25 @@ import { useTranslations } from 'next-intl';
 import { NumberField } from '@/components/fields/NumberField';
 import { RangeField } from '@/components/fields/RangeField';
 import { FieldGroup } from '@/components/ui/FieldGroup';
-import type { EvInputs } from '@/domain/inputs';
-import type { ChargingMix } from '@/domain/tco';
+import type { EvInputs, ScenarioInputs } from '@/domain/inputs';
+import { priceTrajectory, type ChargingMix } from '@/domain/tco';
+import { useFormats } from '@/i18n/useFormats';
 import { ChargingMixBar } from './ChargingMixBar';
 import type { GroupSetter, NumericKey } from './inputsReducer';
+import { PriceTrend } from './PriceTrend';
 
-type EvChargingFieldsProps = { ev: EvInputs; mix: ChargingMix; set: GroupSetter<'ev'> };
+type EvChargingFieldsProps = {
+  ev: EvInputs;
+  mix: ChargingMix;
+  scenario: ScenarioInputs;
+  set: GroupSetter<'ev'>;
+};
 
-export function EvChargingFields({ ev, mix, set }: EvChargingFieldsProps) {
+export function EvChargingFields({ ev, mix, scenario, set }: EvChargingFieldsProps) {
   const t = useTranslations('ev');
   const tUnits = useTranslations('units');
   const tFormat = useTranslations('format');
+  const f = useFormats();
   const bind = (key: NumericKey<EvInputs>) => ({
     value: ev[key],
     onChange: (value: number) => set(key, value),
@@ -86,6 +94,19 @@ export function EvChargingFields({ ev, mix, set }: EvChargingFieldsProps) {
       />
       <NumberField
         label={t('electricityPriceGrowth')}
+        hint={
+          <PriceTrend
+            title={t('electricityPriceTrendTitle')}
+            prices={priceTrajectory(
+              mix.avgPriceEurPerKwh * 100,
+              ev.electricityPriceGrowthPct,
+              scenario.years,
+            )}
+            startYear={scenario.startYear}
+            formatPrice={(ct) => tFormat('ct', { value: f.oneDecimal(ct) })}
+            color="var(--ev)"
+          />
+        }
         unit={tUnits('pctPerYear')}
         {...bind('electricityPriceGrowthPct')}
         min={-5}
