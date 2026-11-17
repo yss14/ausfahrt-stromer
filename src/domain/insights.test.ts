@@ -54,9 +54,17 @@ describe('firstCurveCrossing', () => {
   it('locates the crossing on the combustion curve', () => {
     const crossing = firstCurveCrossing(computeTco(dieselLongRun));
     expect(crossing?.years.toFixed(1)).toBe('2.3');
+    expect(crossing?.inForecast).toBe(false);
   });
 
-  it('returns null when the curves never cross', () => {
+  it('finds a crossing in the forecast years after the chosen period', () => {
+    const moreKm = { ...DEFAULT_INPUTS, scenario: { ...DEFAULT_INPUTS.scenario, kmPerYear: 17000 } };
+    const crossing = firstCurveCrossing(computeTco(moreKm));
+    expect(crossing?.years.toFixed(1)).toBe('6.4');
+    expect(crossing?.inForecast).toBe(true);
+  });
+
+  it('returns null when the curves do not cross within the forecast', () => {
     expect(firstCurveCrossing(computeTco(DEFAULT_INPUTS))).toBeNull();
   });
 });

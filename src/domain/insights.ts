@@ -45,18 +45,23 @@ export function breakEvenYear(result: TcoResult): BreakEvenYear {
   return { kind: 'notWithin', evBehind: end > 0 };
 }
 
-export type CurveCrossing = { years: number; costEur: number };
+export type CurveCrossing = { years: number; costEur: number; inForecast: boolean };
 
-/** First point where the cost curves cross in either direction. */
+/** First point where the cost curves cross in either direction, forecast years included. */
 export function firstCurveCrossing(result: TcoResult): CurveCrossing | null {
-  const diff = curveDiff(result);
-  const ice = result.ice.curve;
-  for (let t = 1; t <= result.years; t++) {
-    const prev = diff[t - 1];
-    const next = diff[t];
+  const ice = [...result.ice.curve, ...result.ice.forecast];
+  const ev = [...result.ev.curve, ...result.ev.forecast];
+  for (let t = 1; t < ice.length; t++) {
+    const prev = ev[t - 1] - ice[t - 1];
+    const next = ev[t] - ice[t];
     if ((prev > 0 && next <= 0) || (prev < 0 && next >= 0)) {
       const fraction = prev / (prev - next);
-      return { years: t - 1 + fraction, costEur: ice[t - 1] + (ice[t] - ice[t - 1]) * fraction };
+      const years = t - 1 + fraction;
+      return {
+        years,
+        costEur: ice[t - 1] + (ice[t] - ice[t - 1]) * fraction,
+        inForecast: years > result.years,
+      };
     }
   }
   return null;

@@ -22,6 +22,9 @@ export type ChartGeometry = {
   plotBottom: number;
   x: (years: number) => number;
   y: (eur: number) => number;
+  /** Last year of the chosen period; the forecast runs from here to `lastYear`. */
+  periodEnd: number;
+  lastYear: number;
   yTicks: number[];
   xTicks: number[];
   /** Nearest whole year for a horizontal position in chart units. */
@@ -31,8 +34,9 @@ export type ChartGeometry = {
 export function chartGeometry(result: TcoResult, containerWidth: number): ChartGeometry {
   const width = Math.max(MIN_CHART_WIDTH, containerWidth);
   const height = CHART_HEIGHT;
-  const { years } = result;
-  const values = [...result.ice.curve, ...result.ev.curve];
+  const periodEnd = result.years;
+  const years = periodEnd + result.ice.forecast.length;
+  const values = [...result.ice.curve, ...result.ice.forecast, ...result.ev.curve, ...result.ev.forecast];
   const low = Math.min(0, ...values);
   const highRaw = Math.max(1, ...values);
   const step = niceStep(highRaw - low);
@@ -58,6 +62,8 @@ export function chartGeometry(result: TcoResult, containerWidth: number): ChartG
     plotBottom,
     x,
     y,
+    periodEnd,
+    lastYear: years,
     yTicks: Array.from({ length: yTickCount + 1 }, (_, i) => yMin + i * step),
     xTicks: Array.from({ length: Math.floor(years / xTickEvery) + 1 }, (_, i) => i * xTickEvery),
     yearAt: (chartX) =>

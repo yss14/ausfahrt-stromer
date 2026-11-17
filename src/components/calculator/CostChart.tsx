@@ -4,7 +4,7 @@ import { useRef, useState, type PointerEvent } from 'react';
 import { useTranslations } from 'next-intl';
 import block from '@/components/ui/Block.module.css';
 import { firstCurveCrossing } from '@/domain/insights';
-import type { TcoResult } from '@/domain/tco';
+import { FORECAST_YEARS, type TcoResult } from '@/domain/tco';
 import { BreakEvenMarker } from './BreakEvenMarker';
 import { ChartAxes } from './ChartAxes';
 import { chartGeometry, endLabelPositions } from './chartGeometry';
@@ -17,7 +17,13 @@ const SERIES = [
   { side: 'ev', color: 'var(--ev)' },
 ] as const;
 
-/** Cumulative cost if the car is sold after n years, for both options. */
+const toPath = (points: [number, number][]) =>
+  points.map(([px, py], i) => `${i ? 'L' : 'M'}${px.toFixed(1)},${py.toFixed(1)}`).join('');
+
+/**
+ * Cumulative cost if the car is sold after n years, for both options. Solid
+ * for the chosen period, dashed for the forecast years after it.
+ */
 export function CostChart({ result }: { result: TcoResult }) {
   const t = useTranslations('chart');
   const boxRef = useRef<HTMLDivElement>(null);
@@ -26,11 +32,15 @@ export function CostChart({ result }: { result: TcoResult }) {
 
   const { years } = result;
   const g = chartGeometry(result, width);
-  const activeYear = hoverYear === null ? null : Math.min(hoverYear, years);
+  const series = {
+    ice: [...result.ice.curve, ...result.ice.forecast],
+    ev: [...result.ev.curve, ...result.ev.forecast],
+  };
+  const activeYear = hoverYear === null ? null : Math.min(hoverYear, g.lastYear);
   const crossing = firstCurveCrossing(result);
-  const labels = endLabelPositions(g.y(result.ice.curve[years]), g.y(result.ev.curve[years]));
-  const path = (curve: number[]) =>
-    curve.map((v, i) => `${i ? 'L' : 'M'}${g.x(i).toFixed(1)},${g.y(v).toFixed(1)}`).join('');
+  const labels = endLabelPositions(g.y(series.ice[g.lastYear]), g.y(series.ev[g.lastYear]));
+  const pathBetween = (values: number[], from: number, to: number) =>
+    toPath(values.slice(from, to + 1).map((v, i) => [g.x(from + i), g.y(v)]));
 
   const trackPointer = (event: PointerEvent<SVGRectElement>) => {
     const svg = event.currentTarget.ownerSVGElement;
@@ -58,20 +68,33 @@ export function CostChart({ result }: { result: TcoResult }) {
           width={g.width}
           height={g.height}
           role="img"
-          aria-label={t('ariaLabel', { years })}
+          aria-label={t('ariaLabel', { years, forecast: FORECAST_YEARS })}
         >
+          <rect
+            className={styles.forecastZone}
+            x={g.x(years)}
+            y={g.plotTop}
+            width={g.x(g.lastYear) - g.x(years)}
+            height={g.plotBottom - g.plotTop}
+          />
+          <text x={g.x(years) + 6} y={g.plotBottom - 7} className={styles.axis}>
+            {t('forecast')}
+          </text>
+
           <ChartAxes g={g} />
 
           {SERIES.map(({ side, color }) => (
-            <path
+            <g
               key={side}
-              d={path(result[side].curve)}
               fill="none"
               stroke={color}
               strokeWidth={2}
               strokeLinejoin="round"
               strokeLinecap="round"
-            />
+            >
+              <path d={pathBetween(series[side], 0, years)} />
+              <path d={pathBetween(series[side], years, g.lastYear)} strokeDasharray="5 5" />
+            </g>
           ))}
 
           {crossing && <BreakEvenMarker crossing={crossing} g={g} />}
@@ -80,13 +103,13 @@ export function CostChart({ result }: { result: TcoResult }) {
             <g key={side}>
               <circle
                 cx={g.x(years)}
-                cy={g.y(result[side].curve[years])}
+                cy={g.y(series[side][years])}
                 r={4.5}
                 fill={color}
                 stroke="var(--surface)"
                 strokeWidth={2}
               />
-              <text x={g.x(years) + 9} y={labels[side] + 4} className={styles.endLabel}>
+              <text x={g.x(g.lastYear) + 9} y={labels[side] + 4} className={styles.endLabel}>
                 {t(side)}
               </text>
             </g>
@@ -105,7 +128,7 @@ export function CostChart({ result }: { result: TcoResult }) {
                 <circle
                   key={side}
                   cx={g.x(activeYear)}
-                  cy={g.y(result[side].curve[activeYear])}
+                  cy={g.y(series[side][activeYear])}
                   r={5}
                   fill={color}
                   stroke="var(--surface)"
@@ -129,14 +152,15 @@ export function CostChart({ result }: { result: TcoResult }) {
         {activeYear !== null && (
           <ChartTooltip
             year={activeYear}
-            iceEur={result.ice.curve[activeYear]}
-            evEur={result.ev.curve[activeYear]}
+            inForecast={activeYear > years}
+            iceEur={series.ice[activeYear]}
+            evEur={series.ev[activeYear]}
             anchorX={g.x(activeYear)}
             containerWidth={g.width}
           />
         )}
       </div>
-      <p className={styles.note}>{t('note')}</p>
+      <p className={styles.note}>{t('note', { forecast: FORECAST_YEARS })}</p>
     </div>
   );
 }

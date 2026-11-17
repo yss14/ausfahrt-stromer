@@ -49,6 +49,11 @@
   fill: var(--ink);
 }
 
+.forecastZone {
+  fill: var(--ink-3);
+  opacity: 0.07;
+}
+
 .endLabel {
   font-size: 12px;
   fill: var(--ink-2);

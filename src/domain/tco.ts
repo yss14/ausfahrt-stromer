@@ -37,10 +37,15 @@ export type SideResult = {
   yearlyRunning: number[];
   /** Cumulative cost if the car is sold after t years, t = 0..years. */
   curve: number[];
+  /** The same curve continued for t = years + 1..years + FORECAST_YEARS, with unchanged assumptions. */
+  forecast: number[];
   startValue: number;
   residualValue: number;
   autoResidualValue: number;
 };
+
+/** Years the cost curves are extrapolated beyond the chosen period. */
+export const FORECAST_YEARS = 2;
 
 export type ChargingMix = { home: number; ac: number; dc: number; avgPriceEurPerKwh: number };
 
@@ -66,8 +71,10 @@ export function chargingMix(ev: EvInputs): ChargingMix {
 type ValueTrajectory = { start: number; residual: number; autoResidual: number; path: number[] };
 
 /**
- * Value at the start of each year. Exponential when both ends are positive,
- * linear otherwise (an exponential path cannot reach or leave zero).
+ * Value at the start of each year, through the forecast horizon. Exponential
+ * when both ends are positive, so the forecast keeps the yearly rate. Linear
+ * otherwise (an exponential path cannot reach or leave zero), and then flat
+ * after the chosen period, because a value cannot drop below zero.
  */
 function valueTrajectory(
   start: number,
@@ -77,11 +84,10 @@ function valueTrajectory(
 ): ValueTrajectory {
   const autoResidual = start * Math.pow(1 - depreciationPct / 100, years);
   const residual = residualOverride ?? autoResidual;
-  const path = Array.from({ length: years + 1 }, (_, t) =>
-    start > 0 && residual > 0
-      ? start * Math.pow(residual / start, t / years)
-      : start + ((residual - start) * t) / years,
-  );
+  const path = Array.from({ length: years + FORECAST_YEARS + 1 }, (_, t) => {
+    if (start > 0 && residual > 0) return start * Math.pow(residual / start, t / years);
+    return t <= years ? start + ((residual - start) * t) / years : residual;
+  });
   return { start, residual, autoResidual, path };
 }
 
@@ -91,12 +97,12 @@ function buildSide(
   years: number,
   amountsInYear: (yearIndex: number) => YearlyAmounts,
 ): SideResult {
-  const yearly = Array.from({ length: years }, (_, i) => amountsInYear(i));
-  const signedTotal = (key: RecurringCategory, sign: number) =>
-    sign * yearly.reduce((sum, amounts) => sum + amounts[key], 0);
-  const yearlyRunning = yearly.map((amounts) =>
+  const horizon = years + FORECAST_YEARS;
+  const yearly = Array.from({ length: horizon }, (_, i) => amountsInYear(i));
+  const running = yearly.map((amounts) =>
     RECURRING_CATEGORIES.reduce((sum, { key, sign }) => sum + sign * amounts[key], 0),
   );
+  const inPeriod = yearly.slice(0, years);
 
   const costs: Record<CostCategory, number> = {
     depreciation: value.start - value.residual,
@@ -112,20 +118,23 @@ function buildSide(
     thgPremium: 0,
     otherBenefits: 0,
   };
-  for (const { key, sign } of RECURRING_CATEGORIES) costs[key] = signedTotal(key, sign);
+  for (const { key, sign } of RECURRING_CATEGORIES) {
+    costs[key] = sign * inPeriod.reduce((sum, amounts) => sum + amounts[key], 0);
+  }
 
-  const curve: number[] = [];
+  const cumulative: number[] = [];
   let paidSoFar = oneOffEur;
-  for (let t = 0; t <= years; t++) {
-    curve.push(paidSoFar + (value.start - value.path[t]));
-    if (t < years) paidSoFar += yearlyRunning[t];
+  for (let t = 0; t <= horizon; t++) {
+    cumulative.push(paidSoFar + (value.start - value.path[t]));
+    if (t < horizon) paidSoFar += running[t];
   }
 
   return {
     costs,
     total: Object.values(costs).reduce((a, b) => a + b, 0),
-    yearlyRunning,
-    curve,
+    yearlyRunning: running.slice(0, years),
+    curve: cumulative.slice(0, years + 1),
+    forecast: cumulative.slice(years + 1),
     startValue: value.start,
     residualValue: value.residual,
     autoResidualValue: value.autoResidual,

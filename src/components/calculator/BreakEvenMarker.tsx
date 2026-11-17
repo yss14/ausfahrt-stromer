@@ -5,14 +5,15 @@ import type { CurveCrossing } from '@/domain/insights';
 import type { ChartGeometry } from './chartGeometry';
 import styles from './CostChart.module.css';
 
-/** Room the label needs to the right of the marker before it flips to the left. */
-const LABEL_ROOM = 60;
+/** Rough label width per character, to decide whether the label flips to the left. */
+const CHAR_WIDTH = 7;
 
 export function BreakEvenMarker({ crossing, g }: { crossing: CurveCrossing; g: ChartGeometry }) {
   const t = useTranslations('chart');
   const x = g.x(crossing.years);
   const y = g.y(crossing.costEur);
-  const labelLeft = x > g.plotRight - LABEL_ROOM;
+  const label = t(crossing.inForecast ? 'breakEvenForecast' : 'breakEven');
+  const labelLeft = x > g.plotRight - label.length * CHAR_WIDTH;
 
   return (
     <g>
@@ -24,7 +25,7 @@ export function BreakEvenMarker({ crossing, g }: { crossing: CurveCrossing; g: C
         textAnchor={labelLeft ? 'end' : 'start'}
         className={styles.marker}
       >
-        {t('breakEven')}
+        {label}
       </text>
     </g>
   );

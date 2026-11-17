@@ -7,6 +7,7 @@ import styles from './CostChart.module.css';
 
 type ChartTooltipProps = {
   year: number;
+  inForecast: boolean;
   iceEur: number;
   evEur: number;
   /** Horizontal position of the crosshair in pixels from the chart's left edge. */
@@ -16,7 +17,14 @@ type ChartTooltipProps = {
 
 const OFFSET = 12;
 
-export function ChartTooltip({ year, iceEur, evEur, anchorX, containerWidth }: ChartTooltipProps) {
+export function ChartTooltip({
+  year,
+  inForecast,
+  iceEur,
+  evEur,
+  anchorX,
+  containerWidth,
+}: ChartTooltipProps) {
   const t = useTranslations('chart');
   const f = useFormats();
   const ref = useRef<HTMLDivElement>(null);
@@ -34,7 +42,9 @@ export function ChartTooltip({ year, iceEur, evEur, anchorX, containerWidth }: C
   return (
     <div className={styles.tip} ref={ref}>
       <span className={styles.tipHead}>
-        {year === 0 ? t('tooltipToday') : t('tooltipSoldAfter', { years: year })}
+        {year === 0
+          ? t('tooltipToday')
+          : t(inForecast ? 'tooltipForecast' : 'tooltipSoldAfter', { years: year })}
       </span>
       <span className={styles.tipRow}>
         <span>

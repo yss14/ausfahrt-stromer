@@ -209,8 +209,8 @@
     "title": "Kosten, wenn du nach n Jahren verkaufst",
     "ice": "Verbrenner",
     "ev": "E-Auto",
-    "ariaLabel": "Kumulierte Kosten Verbrenner und E-Auto über {years} Jahre",
-    "note": "Jeder Punkt zeigt die bis dahin aufgelaufenen Kosten inklusive Wertverlust. Wo sich die Linien kreuzen, holt das E-Auto den höheren Einstieg wieder rein.",
+    "ariaLabel": "Kumulierte Kosten Verbrenner und E-Auto über {years} Jahre und {forecast} Jahre Prognose",
+    "note": "Jeder Punkt zeigt die bis dahin aufgelaufenen Kosten inklusive Wertverlust. Wo sich die Linien kreuzen, holt das E-Auto den höheren Einstieg wieder rein. Gestrichelt: Prognose für {forecast} weitere Jahre mit denselben Annahmen.",
     "today": "heute",
     "yearTick": "{years} J.",
     "thousandsEur": "{value} T€",
@@ -220,7 +220,10 @@
     "tooltipSoldAfter": "Verkauf nach {years, plural, one {# Jahr} other {# Jahren}}",
     "iceAhead": "Verbrenner vorn",
     "evAhead": "E-Auto vorn",
-    "even": "gleichauf"
+    "even": "gleichauf",
+    "forecast": "Prognose",
+    "breakEvenForecast": "Gleichstand (Prognose)",
+    "tooltipForecast": "Verkauf nach {years} Jahren (Prognose)"
   },
   "breakdown": {
     "title": "Aufschlüsselung über {years, plural, one {# Jahr} other {# Jahre}}",

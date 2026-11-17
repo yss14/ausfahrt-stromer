@@ -48,6 +48,31 @@ describe('computeTco', () => {
     expect(Math.round(result.ev.curve[5])).toBe(25808);
   });
 
+  it('continues the sale curve for the forecast years at the same yearly cost', () => {
+    // 845 l × 1.98 € + 98 + 650 + 800 + 150 + 70 = 3441.10 € a year, with no value loss.
+    const steady = {
+      ...DEFAULT_INPUTS,
+      scenario: { ...DEFAULT_INPUTS.scenario, interestRatePct: 0 },
+      ice: { ...DEFAULT_INPUTS.ice, depreciationPct: 0, fuelPriceGrowthPct: 0 },
+    };
+    const { ice } = computeTco(steady);
+    expect(ice.curve[5]).toBeCloseTo(17205.5);
+    expect(ice.forecast[0]).toBeCloseTo(20646.6);
+    expect(ice.forecast[1]).toBeCloseTo(24087.7);
+  });
+
+  it('keeps a residual of zero flat and adds the EV tax once the exemption ends', () => {
+    // 2431 kWh × 0.431 € + 800 + 520 + 190 + 55 − 250 = 2362.761 € a year, plus 56.25 € tax from 2033.
+    const worthless = {
+      ...DEFAULT_INPUTS,
+      scenario: { ...DEFAULT_INPUTS.scenario, interestRatePct: 0 },
+      ev: { ...DEFAULT_INPUTS.ev, residualOverrideEur: 0, electricityPriceGrowthPct: 0 },
+    };
+    const { ev } = computeTco(worthless);
+    expect(ev.forecast[0] - ev.curve[5]).toBeCloseTo(2362.761);
+    expect(ev.forecast[1] - ev.forecast[0]).toBeCloseTo(2419.011);
+  });
+
   it('splits charging between home, public AC and DC', () => {
     const { mix } = computeTco(DEFAULT_INPUTS);
     expect(mix.home).toBeCloseTo(0.7);

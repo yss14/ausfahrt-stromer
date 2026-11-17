@@ -2,7 +2,7 @@
 
 Ausfahrt Stromer is a German calculator that compares the total cost of owning a used electric car with the cost of a combustion car. You enter prices, mileage, energy costs, and running costs. The page shows what each option costs over 1 to 12 years, the annual mileage from which the electric car is cheaper, and the year in which it catches up. The interface is in German.
 
-Live: https://ausfahrt-stromer.vercel.app
+Live: https://www.ausfahrt-stromer.de
 
 ## Features
 
@@ -43,7 +43,7 @@ The cost model is plain TypeScript in `src/domain/`, with no React, and Vitest c
 
 ## Deploy
 
-Vercel builds the app from `main`. Canonical URLs, the sitemap, and social previews use `NEXT_PUBLIC_SITE_URL`, which defaults to `https://ausfahrt-stromer.vercel.app`. Set it when the site moves to its own domain.
+Vercel builds the app from `main`. Canonical URLs, the sitemap, and social previews use `NEXT_PUBLIC_SITE_URL`, which defaults to `https://www.ausfahrt-stromer.de`. Requests to the old `ausfahrt-stromer.vercel.app` host redirect there.
 
 The Overpass fonts in `src/assets/fonts/` are used only for the social preview image and are licensed under the [SIL Open Font License](src/assets/fonts/OFL.txt).
 
