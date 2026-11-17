@@ -5,6 +5,10 @@ Recherchestand: 17. November 2026. Geprüft wurden alle Startwerte in `src/domai
 - Der Tankrabatt (Energiesteuer −14,04 ct/l, mit Mehrwertsteuer rund −17 ct/l, 1.10. bis 31.12.2026, Benzin und Diesel) ist durch [Ebner Stolz](https://www.ebnerstolz.de/de/unser-angebot/leistungen/steuerberatung/zollrecht-energiesteuer-aussenwirtschaft/erneuter-tankrabatt-ab-01.10.2026-113433.html) und mehrere Presseberichte belegt. Die Seite des Bundesfinanzministeriums war beim Abruf nicht erreichbar.
 - Den KBA-Durchschnitt von 10.616 km je Pkw für 2025 nennt der [Kurzbericht „Verkehr in Kilometern“ 2023–2025](https://www.kba.de/DE/Statistik/Kraftverkehr/VerkehrKilometer/vk_inlaenderfahrleistung/2025/verkehr_in_kilometern_kurzbericht_pdf.pdf?__blob=publicationFile&v=5). Die Werte für E-Autos (11.312 km) und Benziner (8.406 km) stehen wörtlich in der [Pressemitteilung 38/2026](https://www.kba.de/DE/Presse/Pressemitteilungen/Allgemein/2026/pm38_2026_verkehr_in_kilometern.html).
 
+## Umsetzung
+
+Am 17. November 2026 wurden alle Empfehlungen aus der Überblickstabelle übernommen, mit einer Abweichung: Der Zins sinkt auf 2,25 %, weil Tagesgeld bei Neobrokern Ende 2026 rund 2,25 bis 2,5 % bringt. Mit den neuen Startwerten liegen beide Optionen über 6 Jahre nur noch rund 150 € auseinander, und das E-Auto lohnt sich ab rund 11.500 km pro Jahr. Die Tabellen unten zeigen den Stand vor der Umsetzung.
+
 ## Kurzfazit
 
 Die meisten Startwerte sind realistisch, und die Steuerlogik ist korrekt. Vier Werte verzerren das Ergebnis aber spürbar. Drei davon benachteiligen das E-Auto, einer bevorzugt es:

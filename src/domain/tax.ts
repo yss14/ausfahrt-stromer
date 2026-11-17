@@ -49,7 +49,7 @@ export function iceAnnualTax(
   return roundToCents(displacementPart + co2Part);
 }
 
-/** KraftStG § 9 Abs. 1 Nr. 2: rate per started 200 kg of gross vehicle weight. */
+/** KraftStG § 9 Abs. 1 Nr. 3: rate per started 200 kg of gross vehicle weight. */
 const WEIGHT_BANDS = [
   { fromKg: 0, toKg: 2000, eurPer200Kg: 11.25 },
   { fromKg: 2000, toKg: 3000, eurPer200Kg: 12.02 },
@@ -68,7 +68,8 @@ export function evAnnualTaxAfterExemption(grossWeightKg: number): number {
         : sum,
     0,
   );
-  return roundToCents(fullTax * EV_REDUCTION);
+  // KraftStG § 11 Abs. 5: the tax due is rounded down to whole euros.
+  return Math.floor(roundToCents(fullTax * EV_REDUCTION));
 }
 
 /** Ten years from first registration, but no later than 31 Dec 2035. */

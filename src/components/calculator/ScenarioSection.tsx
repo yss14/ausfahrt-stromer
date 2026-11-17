@@ -55,6 +55,7 @@ export function ScenarioSection({ scenario, set, onReset }: ScenarioSectionProps
 
       <RangeField
         label={t('years')}
+        hint={t('yearsHint')}
         output={tFormat('years', { years: scenario.years })}
         value={scenario.years}
         min={1}
@@ -64,6 +65,7 @@ export function ScenarioSection({ scenario, set, onReset }: ScenarioSectionProps
       />
       <RangeField
         label={t('kmPerYear')}
+        hint={t('kmPerYearHint')}
         output={tFormat('km', { km: f.integer(scenario.kmPerYear) })}
         outputStyle="kmStone"
         value={scenario.kmPerYear}

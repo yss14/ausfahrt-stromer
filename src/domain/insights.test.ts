@@ -1,6 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { DEFAULT_INPUTS } from './defaults';
-import { buyMode, dieselLongRun } from './scenarios.fixture';
+import { buyMode, dieselLongRun, REFERENCE_INPUTS } from './scenarios.fixture';
 import {
   breakEvenKmPerYear,
   breakEvenYear,
@@ -12,8 +11,8 @@ import {
 import { computeTco } from './tco';
 
 describe('breakEvenKmPerYear', () => {
-  it('finds the mileage for the default scenario, rounded up to 500 km', () => {
-    expect(breakEvenKmPerYear(DEFAULT_INPUTS)).toEqual({ kind: 'at', km: 21000 });
+  it('finds the mileage for the reference scenario, rounded up to 500 km', () => {
+    expect(breakEvenKmPerYear(REFERENCE_INPUTS)).toEqual({ kind: 'at', km: 21000 });
   });
 
   it('shifts with the buy scenario', () => {
@@ -26,21 +25,21 @@ describe('breakEvenKmPerYear', () => {
 
   it('never breaks even when electricity costs more per km than fuel', () => {
     const pricyPower = {
-      ...DEFAULT_INPUTS,
-      ev: { ...DEFAULT_INPUTS.ev, homePriceCt: 150, acPriceCt: 150, dcPriceCt: 150 },
+      ...REFERENCE_INPUTS,
+      ev: { ...REFERENCE_INPUTS.ev, homePriceCt: 150, acPriceCt: 150, dcPriceCt: 150 },
     };
     expect(breakEvenKmPerYear(pricyPower)).toEqual({ kind: 'never' });
   });
 
   it('is always cheaper when the EV wins without driving', () => {
-    const cheapEv = { ...DEFAULT_INPUTS, ev: { ...DEFAULT_INPUTS.ev, priceEur: 2000 } };
+    const cheapEv = { ...REFERENCE_INPUTS, ev: { ...REFERENCE_INPUTS.ev, priceEur: 2000 } };
     expect(breakEvenKmPerYear(cheapEv)).toEqual({ kind: 'always' });
   });
 });
 
 describe('breakEvenYear', () => {
-  it('reports no break-even within the default period, with the EV still behind', () => {
-    expect(breakEvenYear(computeTco(DEFAULT_INPUTS))).toEqual({ kind: 'notWithin', evBehind: true });
+  it('reports no break-even within the reference period, with the EV still behind', () => {
+    expect(breakEvenYear(computeTco(REFERENCE_INPUTS))).toEqual({ kind: 'notWithin', evBehind: true });
   });
 
   it('interpolates the year in which the EV catches up', () => {
@@ -58,20 +57,20 @@ describe('firstCurveCrossing', () => {
   });
 
   it('finds a crossing in the forecast years after the chosen period', () => {
-    const moreKm = { ...DEFAULT_INPUTS, scenario: { ...DEFAULT_INPUTS.scenario, kmPerYear: 17000 } };
+    const moreKm = { ...REFERENCE_INPUTS, scenario: { ...REFERENCE_INPUTS.scenario, kmPerYear: 17000 } };
     const crossing = firstCurveCrossing(computeTco(moreKm));
     expect(crossing?.years.toFixed(1)).toBe('6.4');
     expect(crossing?.inForecast).toBe(true);
   });
 
   it('returns null when the curves do not cross within the forecast', () => {
-    expect(firstCurveCrossing(computeTco(DEFAULT_INPUTS))).toBeNull();
+    expect(firstCurveCrossing(computeTco(REFERENCE_INPUTS))).toBeNull();
   });
 });
 
 describe('cashNeededToday', () => {
   it('nets the trade-in value against the EV purchase when switching', () => {
-    expect(cashNeededToday(DEFAULT_INPUTS)).toEqual({ eur: 11470, basis: 'afterTradeIn' });
+    expect(cashNeededToday(REFERENCE_INPUTS)).toEqual({ eur: 11470, basis: 'afterTradeIn' });
   });
 
   it('compares both purchases when buying', () => {
@@ -79,23 +78,23 @@ describe('cashNeededToday', () => {
   });
 
   it('counts only the EV side when the old car has no trade-in value', () => {
-    const noTradeIn = { ...DEFAULT_INPUTS, ice: { ...DEFAULT_INPUTS.ice, valueEur: 0 } };
+    const noTradeIn = { ...REFERENCE_INPUTS, ice: { ...REFERENCE_INPUTS.ice, valueEur: 0 } };
     expect(cashNeededToday(noTradeIn)).toEqual({ eur: 23470, basis: 'evOnly' });
   });
 });
 
 describe('co2Tonnes', () => {
   it('uses the tailpipe factor of the fuel and the German grid mix', () => {
-    const tonnes = co2Tonnes(computeTco(DEFAULT_INPUTS), DEFAULT_INPUTS);
-    // 4225 l × 2.37 kg; 12155 kWh × 0.36 kg
+    const tonnes = co2Tonnes(computeTco(REFERENCE_INPUTS), REFERENCE_INPUTS);
+    // 4225 l × 2.37 kg; 12155 kWh × 0.34 kg
     expect(tonnes.ice).toBeCloseTo(10.013, 3);
-    expect(tonnes.ev).toBeCloseTo(4.376, 3);
+    expect(tonnes.ev).toBeCloseTo(4.133, 3);
   });
 });
 
 describe('verdict', () => {
-  it('favours the combustion car in the default scenario', () => {
-    const result = verdict(computeTco(DEFAULT_INPUTS));
+  it('favours the combustion car in the reference scenario', () => {
+    const result = verdict(computeTco(REFERENCE_INPUTS));
     expect(result.kind).toBe('iceCheaper');
     if (result.kind === 'iceCheaper') expect(Math.round(result.diff)).toBe(2070);
   });
@@ -103,12 +102,12 @@ describe('verdict', () => {
   it('favours the EV for high-mileage diesel driving', () => {
     const result = verdict(computeTco(dieselLongRun));
     expect(result.kind).toBe('evCheaper');
-    if (result.kind === 'evCheaper') expect(Math.round(result.diff)).toBe(13246);
+    if (result.kind === 'evCheaper') expect(Math.round(result.diff)).toBe(13247);
   });
 
   it('calls it a tie below 50 €', () => {
     // 410 € a year of other benefits closes all but about 20 € of the 2070 € gap.
-    const tied = { ...DEFAULT_INPUTS, ev: { ...DEFAULT_INPUTS.ev, otherBenefitsEur: 410 } };
+    const tied = { ...REFERENCE_INPUTS, ev: { ...REFERENCE_INPUTS.ev, otherBenefitsEur: 410 } };
     expect(verdict(computeTco(tied))).toEqual({ kind: 'tie' });
   });
 });

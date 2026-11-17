@@ -1,9 +1,16 @@
 import { DEFAULT_INPUTS } from './defaults';
 import type { CalculatorInputs } from './inputs';
 import { isRecord, parseInputs } from './parse';
+import { V1_LINK_BASE } from './shareLinkBases';
 
-/** Bump when old links can no longer be read as the current input shape. */
-const VERSION_PREFIX = 'v1.';
+/**
+ * New links store their changes relative to DEFAULT_INPUTS. Before the defaults
+ * change, freeze them in shareLinkBases.ts under this version and bump it, so old
+ * links still open with the values their sender saw.
+ */
+const CURRENT_VERSION = 'v2';
+const FROZEN_BASES: Partial<Record<string, CalculatorInputs>> = { v1: V1_LINK_BASE };
+const baseFor = (version: string) => (version === CURRENT_VERSION ? DEFAULT_INPUTS : FROZEN_BASES[version]);
 
 /** Keeps only the leaves that differ from `base`, so typical links stay short. */
 function changedFields(value: unknown, base: unknown): unknown {
@@ -22,15 +29,16 @@ const fromBase64Url = (encoded: string) => atob(encoded.replace(/-/g, '+').repla
 export function encodeShareFragment(inputs: CalculatorInputs): string {
   const changed = changedFields(inputs, DEFAULT_INPUTS) ?? {};
   // Inputs hold only numbers, null and ASCII enum values, so btoa accepts the JSON.
-  return VERSION_PREFIX + toBase64Url(JSON.stringify(changed));
+  return `${CURRENT_VERSION}.${toBase64Url(JSON.stringify(changed))}`;
 }
 
 /** Inputs from a share fragment, or null when the fragment is not a share link. */
 export function decodeShareFragment(fragment: string): CalculatorInputs | null {
-  const payload = fragment.replace(/^#/, '');
-  if (!payload.startsWith(VERSION_PREFIX)) return null;
+  const match = /^#?(v\d+)\.(.*)$/.exec(fragment);
+  const base = match && baseFor(match[1]);
+  if (!match || !base) return null;
   try {
-    return parseInputs(JSON.parse(fromBase64Url(payload.slice(VERSION_PREFIX.length))));
+    return parseInputs(JSON.parse(fromBase64Url(match[2])), base);
   } catch {
     return null;
   }

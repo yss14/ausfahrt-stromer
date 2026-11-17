@@ -86,8 +86,8 @@ export function cashNeededToday({ scenario, ice, ev }: CalculatorInputs): CashNe
 }
 
 const KG_CO2_PER_LITER = { petrol: 2.37, diesel: 2.65 } as const;
-/** German grid mix. */
-export const KG_CO2_PER_KWH = 0.36;
+/** German grid mix 2025, power plant emissions only (UBA estimate: 344 g/kWh). */
+export const KG_CO2_PER_KWH = 0.34;
 
 export function co2Tonnes(result: TcoResult, inputs: CalculatorInputs): { ice: number; ev: number } {
   return {

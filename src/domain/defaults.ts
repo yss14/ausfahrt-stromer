@@ -4,15 +4,15 @@ import type { CalculatorInputs, Fuel } from './inputs';
 export const DEFAULT_INPUTS: CalculatorInputs = {
   scenario: {
     mode: 'switch',
-    years: 5,
-    kmPerYear: 13000,
+    years: 6,
+    kmPerYear: 11000,
     startYear: 2027,
-    interestRatePct: 3,
+    interestRatePct: 2.25,
   },
   ice: {
     fuel: 'petrol',
     consumptionLPer100: 6.5,
-    fuelPriceEurPerL: 1.98,
+    fuelPriceEurPerL: 2.15,
     fuelPriceGrowthPct: 3,
     valueEur: 12000,
     depreciationPct: 9,
@@ -21,7 +21,7 @@ export const DEFAULT_INPUTS: CalculatorInputs = {
     insuranceEur: 650,
     maintenanceEur: 800,
     tiresEur: 150,
-    inspectionEur: 70,
+    inspectionEur: 80,
     oneOffRepairEur: 0,
     purchaseFeesEur: 120,
     taxHelper: { period: '2014to2020', displacementCcm: 1400, co2GPerKm: 130 },
@@ -29,7 +29,7 @@ export const DEFAULT_INPUTS: CalculatorInputs = {
   ev: {
     priceEur: 22000,
     firstRegistrationYear: 2022,
-    depreciationPct: 11,
+    depreciationPct: 9,
     residualOverrideEur: null,
     consumptionKwhPer100: 17,
     chargingLossPct: 10,
@@ -40,22 +40,25 @@ export const DEFAULT_INPUTS: CalculatorInputs = {
     dcPriceCt: 69,
     electricityPriceGrowthPct: 1.5,
     grossWeightKg: 2000,
-    thgPremiumEur: 250,
+    thgPremiumEur: 220,
     insuranceEur: 800,
     maintenanceEur: 520,
     tiresEur: 190,
     inspectionEur: 55,
     otherBenefitsEur: 0,
     batteryReserveEur: 0,
-    wallboxEur: 1200,
+    wallboxEur: 1500,
     purchaseFeesEur: 270,
   },
 };
 
-/** ADAC nationwide average, 11 Nov 2026 (E10 1.978 €, diesel 2.217 €). */
+/**
+ * ADAC nationwide average on 11 Nov 2026 (E10 1.978 €, diesel 2.217 €) plus the
+ * temporary 17 ct/l fuel tax cut that ends on 31 Dec 2026.
+ */
 export const DEFAULT_FUEL_PRICE: Record<Fuel, number> = {
-  petrol: 1.98,
-  diesel: 2.22,
+  petrol: 2.15,
+  diesel: 2.38,
 };
 
 /**
@@ -70,40 +73,51 @@ export function fuelPriceAfterFuelChange(currentPriceEurPerL: number, nextFuel: 
 
 export const SOURCES = [
   { key: 'adacFuel', url: 'https://www.adac.de/news/aktueller-spritpreis/' },
+  {
+    key: 'fuelTaxCut',
+    url: 'https://www.ebnerstolz.de/de/unser-angebot/leistungen/steuerberatung/zollrecht-energiesteuer-aussenwirtschaft/erneuter-tankrabatt-ab-01.10.2026-113433.html',
+  },
   { key: 'bdewPower', url: 'https://www.bdew.de/media/documents/BDEW_Strompreisanalyse_102026_1.pdf' },
+  { key: 'aceCharging', url: 'https://www.ace.de/elektromobilitaet/laden-wallbox/ladepreise/' },
   {
-    key: 'autobildCharging',
-    url: 'https://www.autobild.de/artikel/e-auto-laden-stromkosten-bei-ionity-enbw-tesla-allego-und-charge-now-19438557.html',
+    key: 'kbaMileage',
+    url: 'https://www.kba.de/DE/Presse/Pressemitteilungen/Allgemein/2026/pm38_2026_verkehr_in_kilometern.html',
   },
   {
-    key: 'zdfTaxExemption',
-    url: 'https://www.zdfheute.de/politik/deutschland/elektro-auto-kfz-steuerbefreiung-verlaengerung-2035-100.html',
+    key: 'zollTaxExemption',
+    url: 'https://www.zoll.de/SharedDocs/Fachmeldungen/Aktuelle-Einzelmeldungen/2026/kfz_verlaengerung_steuerbefreiung_elektrofahrzeuge.html',
   },
-  { key: 'finanztipThg', url: 'https://www.finanztip.de/thg-quote/' },
+  { key: 'autobildThg', url: 'https://www.autobild.de/artikel/thg-quoten-vergleich-anbieter-21337529.html' },
+  { key: 'co2Price', url: 'https://www.bundestag.de/1210950' },
   {
     key: 'adacInspection',
     url: 'https://www.adac.de/rund-ums-fahrzeug/auto-kaufen-verkaufen/autokosten/inspektionskosten-e-auto-verbrenner/',
   },
+  { key: 'adacHu', url: 'https://www.adac.de/rund-ums-fahrzeug/reparatur-pflege-wartung/hu-und-au/tuev-kosten/' },
   {
     key: 'verivoxInsurance',
     url: 'https://www.autohaus.de/nachrichten/autohandel/kfz-versicherung-fuer-e-autos-stromer-zunehmend-teurer-als-verbrenner-3761655',
   },
-  { key: 'adacChargingLoss', url: 'https://insideevs.de/news/610241/ladeverluste-elektroautos-adac-studie/' },
   {
-    key: 'fraunhoferResidual',
-    url: 'https://ecomento.de/2026/06/01/gebrauchte-e-autos-in-deutschland-ein-reifer-markt-mit-guten-perspektiven/',
+    key: 'adacChargingLoss',
+    url: 'https://www.adac.de/rund-ums-fahrzeug/elektromobilitaet/laden/ladeverluste-elektroauto-studie/',
   },
+  { key: 'adacWallbox', url: 'https://www.adac.de/rund-ums-fahrzeug/elektromobilitaet/laden/wallbox-kosten/' },
   {
-    key: 'vmfDepreciation',
-    url: 'https://www.elektroauto-news.net/news/vmf-studie-gebrauchtwagenmarkt-elektroautos',
+    key: 'datResidual',
+    url: 'https://www.autohaus.de/nachrichten/gw-trends/dat-spritpreise-machen-gebrauchte-e-autos-teurer-3909599',
   },
   {
     key: 'carlyBattery',
-    url: 'https://www.elektroquatsch.de/artikel/studie-gebrauchte-e-autos-2026-restwerte-vertrauen-batterie-soh',
+    url: 'https://www.firmenauto.de/fahrzeuge/pkw/soh-daten-machen-den-batteriezustand-bei-gebrauchten-e-autos-zum-wertfaktor/',
   },
   {
-    key: 'co2Price',
-    url: 'https://www.techzeitgeist.de/co2-preis-2027-was-der-beschluss-fuer-heizen-und-tanken-bedeutet/',
+    key: 'ubaGridCo2',
+    url: 'https://www.umweltbundesamt.de/themen/co2-emissionen-pro-kilowattstunde-strom-2025-nur',
+  },
+  {
+    key: 'assumptionsResearch',
+    url: 'https://github.com/yss14/ausfahrt-stromer/blob/main/docs/research/annahmen-2026-11.md',
   },
 ] as const;
 

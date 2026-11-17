@@ -23,12 +23,14 @@ describe('iceAnnualTax', () => {
 });
 
 describe('evAnnualTaxAfterExemption', () => {
-  it('halves 11.25 € per started 200 kg up to 2000 kg', () => {
-    expect(evAnnualTaxAfterExemption(2000)).toBe(56.25);
+  it('halves 11.25 € per started 200 kg up to 2000 kg and rounds down to whole euros', () => {
+    // 10 × 11.25 € = 112.50 €, halved 56.25 €
+    expect(evAnnualTaxAfterExemption(2000)).toBe(56);
   });
 
   it('charges 12.02 € per started 200 kg between 2000 and 3000 kg', () => {
-    expect(evAnnualTaxAfterExemption(2400)).toBe(68.27);
+    // (10 × 11.25 € + 2 × 12.02 €) / 2 = 68.27 €
+    expect(evAnnualTaxAfterExemption(2400)).toBe(68);
   });
 });
 

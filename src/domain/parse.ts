@@ -35,8 +35,8 @@ function mergeOver<T extends object>(template: T, raw: unknown): T {
 
 /**
  * Turns untrusted data (e.g. from localStorage) into valid inputs. Each field
- * that is missing or has the wrong type falls back to its default.
+ * that is missing or has the wrong type falls back to `base`.
  */
-export function parseInputs(raw: unknown): CalculatorInputs {
-  return mergeOver(DEFAULT_INPUTS, raw);
+export function parseInputs(raw: unknown, base: CalculatorInputs = DEFAULT_INPUTS): CalculatorInputs {
+  return mergeOver(base, raw);
 }

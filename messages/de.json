@@ -50,11 +50,13 @@
       }
     },
     "years": "Betrachtungszeitraum",
+    "yearsHint": "Gebrauchte werden im Schnitt 6–7 Jahre gehalten",
     "kmPerYear": "Fahrleistung pro Jahr",
+    "kmPerYearHint": "KBA 2025: Ø 10.600 km je Pkw, E-Autos 11.300 km",
     "startYear": "Startjahr",
     "startYearHint": "Wichtig für die Kfz-Steuer-Befreiung",
     "interestRate": "Zins bzw. entgangene Rendite",
-    "interestRateHint": "Was das im Auto gebundene Geld sonst bringen würde, z. B. auf dem Tagesgeldkonto"
+    "interestRateHint": "Was das im Auto gebundene Geld sonst bringen würde, z. B. als Tagesgeld beim Neobroker (2,25–2,5 %). Bei Finanzierung den Kreditzins"
   },
   "residual": {
     "label": "Restwert Anfang {year} (leer = automatisch)",
@@ -71,14 +73,14 @@
     },
     "consumption": "Verbrauch",
     "fuelPrice": "Spritpreis",
-    "fuelPriceHint": "ADAC-Schnitt 11.11.2026: E10 1,978 €, Diesel 2,217 €",
+    "fuelPriceHint": "ADAC 11.11.2026 ohne den Tankrabatt (−17 ct/l), der Ende 2026 ausläuft",
     "fuelPriceGrowth": "Spritpreis-Anstieg",
-    "fuelPriceGrowthHint": "CO₂-Preis 2027 bei 55–65 €/t, ab 2028 EU-ETS2",
+    "fuelPriceGrowthHint": "CO₂-Preis 2027: 65 €/t, ab 2028 EU-ETS2",
     "valueGroup": "Wert & Restwert",
     "value": "{mode, select, buy {Kaufpreis} other {Heutiger Verkaufswert (optional)}}",
     "valueHint": "{mode, select, buy {Preis des gebrauchten Verbrenners} other {Was du beim Umstieg für ihn bekommst. 0 = nicht anrechnen}}",
     "depreciation": "Wertverlust",
-    "depreciationHint": "Ältere Verbrenner: oft 7–10 %",
+    "depreciationHint": "6–10 Jahre alte Kompakte: rund 8–10 %",
     "runningGroup": "Laufende Kosten",
     "tax": "Kfz-Steuer",
     "insurance": "Versicherung (KH + Kasko)",
@@ -86,7 +88,7 @@
     "maintenanceHint": "Inspektion, Öl, Bremsen, Auspuff, Verschleiß",
     "tires": "Reifen",
     "inspection": "HU + AU",
-    "inspectionHint": "ca. 140 € alle 2 Jahre",
+    "inspectionHint": "ca. 160 € alle 2 Jahre",
     "oneOffRepair": "Absehbare große Reparatur",
     "oneOffRepairHint": "z. B. Zahnriemen, Kupplung, DPF",
     "purchaseFees": "Kaufnebenkosten",
@@ -101,7 +103,7 @@
       "2014to2020": "2014 – 2020",
       "2012to2013": "2012 – 2013",
       "2009to2011": "07/2009 – 2011",
-      "before2009": "vor 07/2009 (Euro 4+)"
+      "before2009": "vor 07/2009 (Euro 3 oder besser)"
     },
     "displacement": "Hubraum",
     "co2": "CO₂-Ausstoß (Fahrzeugschein Feld V.7)",
@@ -117,12 +119,12 @@
     "exemptionExpired": "Steuerbefreiung abgelaufen ({year})",
     "exemptionActive": "Steuerfrei bis 31.12.{year}: <b>{free} von {years}</b> Jahren",
     "depreciation": "Wertverlust",
-    "depreciationHint": "Studien: 10–14 % in den ersten Jahren",
+    "depreciationHint": "3–6 Jahre alte E-Autos: rund 6–9 %",
     "chargingGroup": "Strom & Laden",
     "consumption": "Verbrauch (Bordcomputer)",
     "consumptionHint": "Jahresschnitt inkl. Winter",
     "chargingLoss": "Ladeverluste",
-    "chargingLossHint": "ADAC: Wallbox 5–10 %, Steckdose bis 30 %",
+    "chargingLossHint": "ADAC 2026: Wallbox 5–7 %, Schnelllader 5–15 %, Steckdose bis 24 %",
     "homeShare": "Laden zu Hause / beim Arbeitgeber",
     "dcShare": "Vom Rest am Schnelllader (DC)",
     "mix": {
@@ -132,7 +134,7 @@
       "average": "Ø <b>{price} ct/kWh</b>"
     },
     "homePrice": "Strompreis zu Hause",
-    "homePriceHint": "BDEW-Schnitt 37,3 ct; mit PV-Strom deutlich weniger",
+    "homePriceHint": "Neukunden ca. 35 ct, BDEW-Schnitt 37,3 ct; mit PV-Strom deutlich weniger",
     "acPrice": "Öffentlich AC",
     "dcPrice": "Schnelllader DC",
     "electricityPriceGrowth": "Strompreis-Anstieg",
@@ -140,11 +142,11 @@
     "grossWeight": "Zul. Gesamtgewicht (Feld F.2)",
     "grossWeightHint": "Danach <b>{amount}</b> pro Jahr",
     "thgPremium": "THG-Prämie",
-    "thgPremiumHint": "Markt 2026: meist 250–350 €, nur für den Halter",
+    "thgPremiumHint": "Zusagen für 2027: meist 200–300 €, nur für den Halter",
     "insurance": "Versicherung (KH + Kasko)",
-    "insuranceHint": "Verivox 2026: in ca. der Hälfte der Tarife teurer",
+    "insuranceHint": "Verivox 2026: in ca. der Hälfte der Vollkasko-Tarife teurer",
     "maintenance": "Wartung & Reparaturen",
-    "maintenanceHint": "ADAC: Inspektion rund ⅓ günstiger",
+    "maintenanceHint": "ADAC 2026: Inspektion rund 40 % günstiger",
     "tires": "Reifen",
     "tiresHint": "Mehrgewicht erhöht den Abrieb",
     "inspection": "HU (keine AU nötig)",
@@ -154,7 +156,7 @@
     "batteryReserveHint": "Sinnvoll, wenn die Akku-Garantie endet",
     "oneOffGroup": "Einmalkosten beim Umstieg",
     "wallbox": "Wallbox inkl. Installation",
-    "wallboxHint": "0, wenn vorhanden oder nicht nötig",
+    "wallboxHint": "ADAC: 1.200–3.500 €; 0, wenn vorhanden oder nicht nötig",
     "purchaseFees": "Kaufnebenkosten",
     "purchaseFeesHint": "Zulassung, Kennzeichen, Batteriezertifikat",
     "electricityPriceTrendTitle": "Strompreis im Lademix pro kWh"
@@ -256,7 +258,7 @@
     "yearlySummary": "Jahreswerte als Tabelle",
     "soldAtStartOf": "Verkauf Anfang",
     "yearRow": "{year} (nach {years} J.)",
-    "co2": "CO₂ {span}: Verbrenner ca. {ice} t aus dem Auspuff, E-Auto ca. {ev} t beim deutschen Strommix ({gridFactor} kg/kWh). Mit Ökostrom oder PV entsprechend weniger."
+    "co2": "CO₂ {span}: Verbrenner ca. {ice} t aus dem Auspuff, E-Auto ca. {ev} t beim deutschen Strommix ({gridFactor} kg/kWh). Mit Ökostrom oder PV entsprechend weniger. Die Herstellung beider Autos ist nicht eingerechnet, denn beim Gebrauchtkauf ist sie schon angefallen."
   },
   "mobileBar": {
     "tie": "gleichauf",
@@ -312,7 +314,7 @@
     "checklist": {
       "title": "Beim gebrauchten E-Auto prüfen",
       "items": {
-        "soh": "<b>Batteriezertifikat (SoH)</b>: ist inzwischen der wichtigste Faktor für Preis und Restwert. Die meisten Akkus verlieren nur rund 2 % Kapazität pro Jahr.",
+        "soh": "<b>Batteriezertifikat (SoH)</b>: zeigt den Zustand des Akkus und bewegt den Preis um einige Prozent. Die meisten Akkus verlieren nur rund 2 % Kapazität pro Jahr.",
         "warranty": "<b>Akku-Garantie</b>: meist 8 Jahre bzw. 160.000 km, oft ab 70 % SoH. Danach eine Rücklage einplanen.",
         "registration": "<b>Erstzulassung</b>: bestimmt, wie lange die Kfz-Steuer-Befreiung noch läuft.",
         "heatPump": "<b>Wärmepumpe und Ladeleistung</b>: bestimmen Winterverbrauch und Zeit am Schnelllader.",
@@ -323,17 +325,22 @@
       "title": "Quellen der Startwerte",
       "items": {
         "adacFuel": "ADAC: Spritpreise (11.11.2026)",
+        "fuelTaxCut": "Ebner Stolz: Tankrabatt bis 31.12.2026",
         "bdewPower": "BDEW: Strompreisanalyse 10/2026",
-        "autobildCharging": "AUTO BILD: Ladepreise AC/DC",
-        "zdfTaxExemption": "ZDF: Kfz-Steuerbefreiung bis 2035",
-        "finanztipThg": "Finanztip: THG-Quote 2026",
+        "aceCharging": "ACE: Ladepreise AC/DC",
+        "kbaMileage": "KBA: Verkehr in Kilometern 2025",
+        "zollTaxExemption": "Zoll: Kfz-Steuerbefreiung bis 2035",
+        "autobildThg": "AUTO BILD: THG-Prämie 2027",
+        "co2Price": "Bundestag: CO₂-Preis 2027",
         "adacInspection": "ADAC: Inspektionskosten E-Auto vs. Verbrenner",
+        "adacHu": "ADAC: Kosten der Hauptuntersuchung",
         "verivoxInsurance": "Autohaus/Verivox: Versicherung E-Auto",
-        "adacChargingLoss": "ADAC: Ladeverluste",
-        "fraunhoferResidual": "Fraunhofer ISI: Restwerte gebrauchter E-Autos",
-        "vmfDepreciation": "VMF/Deloitte: Wertverlust BEV vs. Verbrenner",
-        "carlyBattery": "Carly/TÜV Nord & Geotab: Batteriezustand",
-        "co2Price": "CO₂-Preis 2027"
+        "adacChargingLoss": "ADAC: Ladeverluste (08/2026)",
+        "adacWallbox": "ADAC: Wallbox-Kosten 2026",
+        "datResidual": "Autohaus/DAT: Restwerte gebrauchter E-Autos",
+        "carlyBattery": "Carly/TÜV Nord: Batteriezustand als Wertfaktor",
+        "ubaGridCo2": "Umweltbundesamt: CO₂ je kWh Strom 2025",
+        "assumptionsResearch": "Recherche zu allen Annahmen (11/2026)"
       }
     }
   },

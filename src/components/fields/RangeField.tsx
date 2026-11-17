@@ -1,11 +1,13 @@
 'use client';
 
 import { useId } from 'react';
+import fieldStyles from './Field.module.css';
 import styles from './RangeField.module.css';
 
 type RangeFieldProps = {
   label: string;
   output: string;
+  hint?: string;
   value: number;
   min: number;
   max: number;
@@ -18,6 +20,7 @@ type RangeFieldProps = {
 export function RangeField({
   label,
   output,
+  hint,
   value,
   min,
   max,
@@ -47,8 +50,14 @@ export function RangeField({
         step={step}
         value={value}
         aria-valuetext={output}
+        aria-describedby={hint ? `${id}-hint` : undefined}
         onChange={(event) => onChange(Number(event.target.value))}
       />
+      {hint && (
+        <span className={fieldStyles.hint} id={`${id}-hint`}>
+          {hint}
+        </span>
+      )}
     </div>
   );
 }

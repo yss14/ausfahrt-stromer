@@ -1,0 +1,56 @@
+import type { CalculatorInputs } from './inputs';
+
+/**
+ * The defaults that `v1.` share links were encoded against. A link stores only the
+ * fields that differ from its base, so this object must never change.
+ */
+export const V1_LINK_BASE: CalculatorInputs = {
+  scenario: {
+    mode: 'switch',
+    years: 5,
+    kmPerYear: 13000,
+    startYear: 2027,
+    interestRatePct: 3,
+  },
+  ice: {
+    fuel: 'petrol',
+    consumptionLPer100: 6.5,
+    fuelPriceEurPerL: 1.98,
+    fuelPriceGrowthPct: 3,
+    valueEur: 12000,
+    depreciationPct: 9,
+    residualOverrideEur: null,
+    annualTaxEur: 98,
+    insuranceEur: 650,
+    maintenanceEur: 800,
+    tiresEur: 150,
+    inspectionEur: 70,
+    oneOffRepairEur: 0,
+    purchaseFeesEur: 120,
+    taxHelper: { period: '2014to2020', displacementCcm: 1400, co2GPerKm: 130 },
+  },
+  ev: {
+    priceEur: 22000,
+    firstRegistrationYear: 2022,
+    depreciationPct: 11,
+    residualOverrideEur: null,
+    consumptionKwhPer100: 17,
+    chargingLossPct: 10,
+    homeSharePct: 70,
+    dcShareOfRestPct: 50,
+    homePriceCt: 35,
+    acPriceCt: 55,
+    dcPriceCt: 69,
+    electricityPriceGrowthPct: 1.5,
+    grossWeightKg: 2000,
+    thgPremiumEur: 250,
+    insuranceEur: 800,
+    maintenanceEur: 520,
+    tiresEur: 190,
+    inspectionEur: 55,
+    otherBenefitsEur: 0,
+    batteryReserveEur: 0,
+    wallboxEur: 1200,
+    purchaseFeesEur: 270,
+  },
+};

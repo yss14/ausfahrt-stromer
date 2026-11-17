@@ -6,7 +6,7 @@ describe('inputsReducer', () => {
   it('switches an untouched fuel price to the new fuel default', () => {
     const next = inputsReducer(DEFAULT_INPUTS, { type: 'setFuel', fuel: 'diesel' });
     expect(next.ice.fuel).toBe('diesel');
-    expect(next.ice.fuelPriceEurPerL).toBe(2.22);
+    expect(next.ice.fuelPriceEurPerL).toBe(2.38);
   });
 
   it('keeps a fuel price the user typed', () => {
