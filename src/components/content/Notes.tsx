@@ -13,7 +13,7 @@ export function Notes() {
   return (
     <section className={styles.notes} aria-label={t('label')}>
       <div className={block.block}>
-        <h3>{t('howItWorks.title')}</h3>
+        <h2>{t('howItWorks.title')}</h2>
         <ul className={styles.list}>
           {HOW_IT_WORKS.map((key) => (
             <li key={key}>{t(`howItWorks.items.${key}`)}</li>
@@ -21,7 +21,7 @@ export function Notes() {
         </ul>
       </div>
       <div className={block.block}>
-        <h3>{t('checklist.title')}</h3>
+        <h2>{t('checklist.title')}</h2>
         <ul className={styles.list}>
           {CHECKLIST.map((key) => (
             <li key={key}>{t.rich(`checklist.items.${key}`, { b: bold })}</li>
@@ -29,7 +29,7 @@ export function Notes() {
         </ul>
       </div>
       <div className={block.block}>
-        <h3>{t('sources.title')}</h3>
+        <h2>{t('sources.title')}</h2>
         <ul className={styles.list}>
           {SOURCES.map(({ key, url }) => (
             <li key={key}>

@@ -1,0 +1,17 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
+  gap: 18px 28px;
+}
+
+.item {
+  display: grid;
+  gap: 6px;
+  align-content: start;
+}
+
+.item p {
+  color: var(--ink-2);
+  font-size: 14px;
+  line-height: 1.55;
+}

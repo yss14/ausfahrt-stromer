@@ -1,11 +1,18 @@
 {
   "meta": {
-    "title": "Ausfahrt Stromer: Stromer oder Verbrenner?",
-    "description": "Gesamtkosten-Rechner für Deutschland: Was kostet ein gebrauchtes E-Auto im Vergleich zum Verbrenner wirklich? Wertverlust, Sprit und Strom, Kfz-Steuer, THG-Quote, Versicherung und Wartung."
+    "siteName": "Ausfahrt Stromer",
+    "title": "Gebrauchtes E-Auto oder Verbrenner? Kostenrechner · Ausfahrt Stromer",
+    "description": "Lohnt sich ein gebrauchtes E-Auto gegenüber dem Verbrenner? Kostenrechner mit Wertverlust, Sprit und Strom, Kfz-Steuer, THG-Quote, Versicherung und Wartung.",
+    "ogLocale": "de_DE",
+    "ogImage": {
+      "kicker": "Gebrauchtwagen-Rechner · Deutschland",
+      "title": "Gebrauchtes E-Auto oder Verbrenner?",
+      "subtitle": "Was kostet über die nächsten Jahre wirklich weniger? Wertverlust, Energie, Steuer, THG-Quote, Versicherung und Wartung im Vergleich."
+    }
   },
   "header": {
     "kicker": "Ausfahrt Stromer · Gebrauchtwagen · Gesamtkosten · Deutschland, Stand 17. 11. 2026",
-    "title": "Stromer oder Verbrenner?",
+    "title": "Gebrauchtes E-Auto oder Verbrenner?",
     "lead": "Rechne aus, was dich ein gebrauchtes E-Auto im Vergleich zum Verbrenner über die nächsten Jahre wirklich kostet: Wertverlust, Sprit und Strom, Kfz-Steuer, THG-Quote, Versicherung, Wartung und Reifen. Die Startwerte sind ein Beispiel mit Marktpreisen von November 2026. Trag deine eigenen Zahlen ein."
   },
   "units": {
@@ -239,6 +246,39 @@
     "tie": "gleichauf",
     "evCheaper": "E-Auto −{amount}",
     "iceCheaper": "Verbrenner −{amount}"
+  },
+  "faq": {
+    "title": "Häufige Fragen",
+    "items": {
+      "worthIt": {
+        "q": "Lohnt sich ein gebrauchtes E-Auto finanziell?",
+        "a": "Das hängt vor allem von Fahrleistung, Kaufpreis und Restwert ab. Der Rechner vergleicht die Gesamtkosten beider Optionen über denselben Zeitraum: Wertverlust, Energie, Steuer, Versicherung, Wartung, Reifen und Kapitalkosten. Mit den Startwerten (Umstieg von einem Benziner im Wert von {iceValue} auf ein gebrauchtes E-Auto für {evPrice}, {years} Jahre) ist das E-Auto ab rund {breakEvenKm} km pro Jahr günstiger."
+      },
+      "tax": {
+        "q": "Ist ein gebrauchtes E-Auto von der Kfz-Steuer befreit?",
+        "a": "Ja, die Befreiung hängt am Fahrzeug, nicht am Halter. Sie gilt zehn Jahre ab Erstzulassung, längstens bis zum 31.12.2035, und geht beim Kauf auf dich über. Bei einem Gebrauchten zählt also nur die Restlaufzeit. Danach zahlt ein E-Auto die gewichtsbasierte Kfz-Steuer, um die Hälfte ermäßigt."
+      },
+      "thg": {
+        "q": "Bekomme ich die THG-Quote auch für ein gebrauchtes E-Auto?",
+        "a": "Ja. Die THG-Prämie steht dem Halter eines reinen E-Autos zu, egal ob neu oder gebraucht. Sie wird einmal pro Fahrzeug und Kalenderjahr ausgezahlt. Hat der Vorbesitzer sie für das laufende Jahr schon beantragt, bist du erst im nächsten Jahr dran. Der Rechner setzt {thg} pro Jahr an. Die Höhe schwankt je nach Anbieter und Marktpreis."
+      },
+      "insurance": {
+        "q": "Ist die Versicherung für ein E-Auto teurer?",
+        "a": "Oft ja, weil E-Autos häufig mehr Leistung haben und Schäden an Akku und Elektronik teuer sind. Entscheidend sind aber Typklasse, Schadenfreiheitsklasse und Region. Der Rechner nimmt {evInsurance} statt {iceInsurance} pro Jahr an. Hol dir am besten vorab ein Angebot für das konkrete Modell."
+      },
+      "maintenance": {
+        "q": "Wie viel spart ein E-Auto bei der Wartung?",
+        "a": "Ölwechsel, Zündkerzen, Zahnriemen und Auspuff entfallen, und durch die Rekuperation verschleißen die Bremsen langsamer. Der Rechner setzt für Wartung und Verschleiß {evMaintenance} statt {iceMaintenance} pro Jahr an. Reifen nutzen sich wegen des höheren Gewichts dafür oft schneller ab: {evTires} statt {iceTires} pro Jahr."
+      },
+      "charging": {
+        "q": "Was kostet das Laden im Vergleich zum Tanken?",
+        "a": "Zu Hause lädst du am günstigsten, an Schnellladern zahlst du ein Vielfaches. Mit dem Startmix ({homeShare} % zu Hause) kostet Strom im Schnitt {avgCt} ct pro kWh. Für die Gesamtrechnung kommen Ladeverluste dazu. Trag deinen eigenen Mix ein, denn er verschiebt das Ergebnis stark."
+      },
+      "battery": {
+        "q": "Worauf muss ich beim Akku eines gebrauchten E-Autos achten?",
+        "a": "Lass dir ein Batteriezertifikat mit dem Gesundheitszustand (State of Health, SoH) zeigen. Die meisten Akkus verlieren nur rund 2 % Kapazität pro Jahr. Die Akku-Garantie läuft meist 8 Jahre bzw. 160.000 km und greift oft unter 70 % SoH. Ist sie abgelaufen, plane im Rechner eine Rücklage für den Akku ein."
+      }
+    }
   },
   "notes": {
     "label": "Hinweise und Quellen",
