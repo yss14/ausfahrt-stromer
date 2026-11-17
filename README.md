@@ -10,7 +10,7 @@ Live: https://www.ausfahrt-stromer.de
 - A cost breakdown for depreciation, interest on the money tied up in the car, fuel and electricity, vehicle tax, THG premium, insurance, maintenance, tires, and inspections.
 - German vehicle tax rules: displacement and CO₂ tax for combustion cars, the electric car exemption that ends in 2035 at the latest, and the halved weight-based tax after it.
 - A chart of the cumulative cost if you sell after n years, with the break-even point marked.
-- Inputs are saved in your browser's `localStorage`. The app sends nothing to a server.
+- Inputs are saved in your browser's `localStorage` and never leave it. Vercel Web Analytics and Speed Insights count page views and measure load times without cookies.
 - A share link carries the inputs that differ from the defaults, base64url-encoded in the URL fragment. The fragment never reaches the server.
 
 ## Run it locally
