@@ -12,11 +12,11 @@ import { computeTco } from './tco';
 
 describe('breakEvenKmPerYear', () => {
   it('finds the mileage for the reference scenario, rounded up to 500 km', () => {
-    expect(breakEvenKmPerYear(REFERENCE_INPUTS)).toEqual({ kind: 'at', km: 21000 });
+    expect(breakEvenKmPerYear(REFERENCE_INPUTS)).toEqual({ kind: 'at', km: 24500 });
   });
 
   it('shifts with the buy scenario', () => {
-    expect(breakEvenKmPerYear(buyMode)).toEqual({ kind: 'at', km: 20500 });
+    expect(breakEvenKmPerYear(buyMode)).toEqual({ kind: 'at', km: 24000 });
   });
 
   it('drops for expensive diesel over ten years', () => {
@@ -45,21 +45,21 @@ describe('breakEvenYear', () => {
   it('interpolates the year in which the EV catches up', () => {
     const result = breakEvenYear(computeTco(dieselLongRun));
     expect(result.kind).toBe('at');
-    if (result.kind === 'at') expect(result.years.toFixed(1)).toBe('2.3');
+    if (result.kind === 'at') expect(result.years.toFixed(1)).toBe('3.0');
   });
 });
 
 describe('firstCurveCrossing', () => {
   it('locates the crossing on the combustion curve', () => {
     const crossing = firstCurveCrossing(computeTco(dieselLongRun));
-    expect(crossing?.years.toFixed(1)).toBe('2.3');
+    expect(crossing?.years.toFixed(1)).toBe('3.0');
     expect(crossing?.inForecast).toBe(false);
   });
 
   it('finds a crossing in the forecast years after the chosen period', () => {
     const moreKm = { ...REFERENCE_INPUTS, scenario: { ...REFERENCE_INPUTS.scenario, kmPerYear: 17000 } };
     const crossing = firstCurveCrossing(computeTco(moreKm));
-    expect(crossing?.years.toFixed(1)).toBe('6.4');
+    expect(crossing?.years.toFixed(1)).toBe('6.8');
     expect(crossing?.inForecast).toBe(true);
   });
 
@@ -96,18 +96,18 @@ describe('verdict', () => {
   it('favours the combustion car in the reference scenario', () => {
     const result = verdict(computeTco(REFERENCE_INPUTS));
     expect(result.kind).toBe('iceCheaper');
-    if (result.kind === 'iceCheaper') expect(Math.round(result.diff)).toBe(2070);
+    if (result.kind === 'iceCheaper') expect(Math.round(result.diff)).toBe(2202);
   });
 
   it('favours the EV for high-mileage diesel driving', () => {
     const result = verdict(computeTco(dieselLongRun));
     expect(result.kind).toBe('evCheaper');
-    if (result.kind === 'evCheaper') expect(Math.round(result.diff)).toBe(13247);
+    if (result.kind === 'evCheaper') expect(Math.round(result.diff)).toBe(12700);
   });
 
   it('calls it a tie below 50 €', () => {
-    // 410 € a year of other benefits closes all but about 20 € of the 2070 € gap.
-    const tied = { ...REFERENCE_INPUTS, ev: { ...REFERENCE_INPUTS.ev, otherBenefitsEur: 410 } };
+    // 440 € a year of other benefits closes all but about 2 € of the 2202 € gap.
+    const tied = { ...REFERENCE_INPUTS, ev: { ...REFERENCE_INPUTS.ev, otherBenefitsEur: 440 } };
     expect(verdict(computeTco(tied))).toEqual({ kind: 'tie' });
   });
 });

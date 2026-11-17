@@ -724,3 +724,149 @@ Den größten Einfluss haben der Wertverlust des E-Autos und der Spritpreis ohne
   - [EZB-Rat hebt Leitzinsen um 25 Basispunkte an (mit Projektionen vom September 2026)](https://www.bundesbank.de/de/aufgaben/themen/ezb-rat-hebt-leitzinsen-um-25-basispunkte-an-1008148) – Deutsche Bundesbank, 10. September 2026
   - [Ergebnisse des Survey of Professional Forecasters für das dritte Quartal 2026](https://www.ecb.europa.eu/press/pr/date/2026/html/ecb.pr260724~a099353951.de.html) – Europäische Zentralbank, 24. Juli 2026
 
+
+## Nachtrag: Restwert nach Alter und Fahrleistung
+
+Umgesetzt am 17. November 2026: Der Rechner korrigiert den jährlichen Wertverlust beider Autos jetzt um 3 % je 10.000 km Abweichung von 11.000 km pro Jahr. Die Referenz ist 11.000 statt der unten empfohlenen 12.000 km, weil das KBA für 2025 im Schnitt 10.616 km je Pkw und 11.312 km je E-Auto misst. Der Wertverlust des Verbrenners bleibt bei 9 %. Ein gebrauchtes E-Auto für 22.000 € ist nach 6 Jahren mit 16.500 km pro Jahr damit rund 11.300 € wert statt 12.493 €.
+
+
+Stand der Recherche: 17.11.2026. Alle AutoScout24-Werte sind Angebotspreise (überwiegend Händler) vom 17.11.2026, keine Transaktionspreise. Bei älteren E-Autos zeigte AutoScout24 beim Abruf nur kleine Stichproben (3–20 Inserate je Modell und Baujahr, teils aus NL/FR) und keinen Median; diese Zahlen sind deshalb nur Anhaltspunkte. Regressionen auf diesen Inseraten sind „eigene Rechnung“ (log-Preis auf Kilometerstand, kleine n, keine Kontrolle für Zustand). Prozentwerte je 10.000 Meilen habe ich mit 1 Meile = 1,609 km auf 10.000 km umgerechnet.
+
+### Kurzfassung und empfohlene Parameter
+
+**Empfohlenes Modell** (Haltedauer n Jahre, Fahrleistung `km_jahr`):
+
+```
+Restwert = Kaufpreis × (1 − a)^n × (1 − m)^((km_jahr − 12.000) × n / 10.000)
+```
+
+- `a` = jährlicher Wertverlust bei durchschnittlicher Fahrleistung. **E-Auto 9 %, Verbrenner 10 %.**
+- `m` = Abschlag je 10.000 km über (Zuschlag unter) der Referenz. **3 % für beide Antriebe.**
+- Referenzfahrleistung **12.000 km/Jahr**. Der Kaufpreis enthält bereits den Kilometerstand beim Kauf; die Korrektur betrifft nur die Abweichung während der Haltedauer. So bleibt `a` ein Wert, der wie bisher aus Marktquerschnitten mit üblicher Laufleistung geschätzt ist, und muss nicht neu kalibriert werden.
+
+**Beispiele** (Rechnung in Abschnitt 5):
+
+| Fall | heute (9 %, ohne km) | Empfehlung |
+|---|---|---|
+| E-Auto 22.000 €, 6 Jahre, 16.500 km/Jahr | 12.493 € | **11.507 €** |
+| E-Auto 22.000 €, 6 Jahre, 11.000 km/Jahr | 12.493 € | **12.724 €** |
+
+**Belastbarkeit:**
+- Laufleistungseffekt: mittel. Die Größenordnung (2–5 % je 10.000 km bei gleichem Alter) stützen eine große US-Studie und eigene Inseratsauswertungen. Zwei Studien (Norwegen, Fraunhofer ISI) finden für E-Autos aber fast keinen Effekt. Einen stärkeren Laufleistungseffekt bei E-Autos wegen Akkuverschleiß belegt keine Quelle.
+- Altersrate jenseits von 6 Jahren: schwach bis mittel. Es gibt nur kleine Inserats-Stichproben älterer E-Autos mit kleinem Akku; für eine ID.3-Klasse mit 11 Jahren gibt es noch keine Marktdaten.
+- Preissprung beim Ende der Akku-Garantie: keine belastbare Quelle gefunden.
+
+**Einordnung des Nutzer-Beispiels:** Mit Laufleistungskorrektur sinkt der Wert um rund 8 % auf etwa 11.500 €. Das sind rund 30 % des Listenneupreises eines ID.3 Pro Performance von 2021 (38.060 € laut ADAC). Heute 9–11 Jahre alte kompakte E-Autos mit 22–36 kWh (e-Golf, i3) bieten Händler für rund 34–42 % des Neupreises an. Den Eindruck „viel zu hoch“ stützen die Daten also nur teilweise: Die Korrektur ist spürbar, aber kein Einbruch. Wer vorsichtiger rechnen will, nimmt a = 10 % für das E-Auto (dann 10.769 €). Das deckt das Risiko ab, dass technischer Fortschritt ältere E-Autos schneller entwertet (siehe Abschnitt 2).
+
+### 1. Laufleistungseffekt (bei gleichem Alter)
+
+- **Befund:**
+  - *DAT/Schwacke:* Beide korrigieren nach Kilometerstand, veröffentlichen die Korrekturtabellen aber nicht; Schwacke bedient nur noch Gewerbekunden. Bei E-Autos korrigiert die DAT den Wert zusätzlich über den Akku: Laut DAT vergleicht SilverDAT den gemessenen SoH mit einem Soll-SoH, der vom Kilometerstand abhängt, und rechnet die Abweichung in Euro um. Konkrete Prozent oder Euro je km nennt die DAT nicht. Eine öffentliche DAT- oder Schwacke-Korrektur je 10.000 km: keine belastbare Quelle gefunden.
+  - *USA, Roberson et al. (Environmental Research Letters, April 2024; 9 Mio. Händlerinserate 2016–2022):* Preisabschlag je zusätzliche 10.000 Meilen bei gleichem Alter: Verbrenner −4,64 %, E-Auto ohne Tesla −5,07 %, Tesla −3,93 %. Umgerechnet je 10.000 km: Verbrenner rund −2,9 %, E-Auto rund −3,2 %, Tesla rund −2,5 % (eigene Umrechnung). Die Altersrate liegt dort bei 9,7 %/Jahr (Verbrenner) gegenüber 14,5 %/Jahr (alle E-Autos).
+  - *Norwegen, Andreassen & Lind (Environmental and Resource Economics 2024; finn.no 2011–2021, rund 450.000 Inserate):* Bei Kontrolle für das Alter ist der Kilometerstand wenig wichtig. Die Preis-Elastizität liegt bei Benzinern bei rund −0,07 bis −0,10; bei E-Autos ist sie klein und meist nicht signifikant. Eine Elastizität von −0,07 entspricht bei 100.000 km rund −0,7 % je weitere 10.000 km (eigene Umrechnung).
+  - *Deutschland, Fraunhofer ISI (Blog, 01.06.2026; über 30.000 E-Auto-Inserate):* Eine Verdopplung der Jahresfahrleistung senkt den Preis nur um etwa 2 %. Alter, Laufleistung, Akkugröße und Marke erklären zusammen fast 70 % der Preisunterschiede. Die zugrunde liegende Publikation ist nicht verlinkt; die Spezifikation kenne ich nicht.
+  - *Deutschland, Englmaier/Schmöller/Stowasser (Management Science 2018; mobile.de 2009, 63.340 Inserate von Golf, Astra, 3er, A4 und A-Klasse, 1,7–9,7 Jahre alt, Durchschnittspreis 13.209 €):* Zwischen den 10.000-km-Marken fällt der Preis um 63 € je 1.000 km; an jeder 10.000-km-Marke kommt ein Sprung von 367 € dazu. Zusammen sind das 937 € je 10.000 km, rund 7 % des Durchschnittspreises (eigene Rechnung, lineares Modell, Verbrenner).
+  - *Eigene Rechnung (AutoScout24, 17.11.2026), Abschlag je 10.000 km im selben Baujahr:*
+    - VW ID.3 EZ 2021: −2,6 % (n = 55; Standardfehler 0,4 Prozentpunkte). Mit Kontrolle für die Pure-Version (45 kWh): −2,3 % (n = 39).
+    - BMW i3 EZ 2014–2018: −4,0 % (n = 15, mit Baujahr und Akkugröße).
+    - Hyundai Ioniq Elektro EZ 2018: −3,6 % (n = 10).
+    - VW Golf EZ 2016: −5,3 % (n = 17, mit Leistung und Diesel-Dummy). VW Golf EZ 2012: −4,8 % (n = 19). Standardfehler jeweils rund 1 Prozentpunkt.
+  - *Ist der Effekt bei E-Autos stärker?* Nein, das belegt keine Quelle. In den USA ist er für E-Autos ohne Tesla nur wenig größer als für Verbrenner; in Norwegen und laut Fraunhofer ISI ist er bei E-Autos sogar kleiner. Laut Fraunhofer ISI sinkt die Kapazität typischerweise nur um 1–2 Prozentpunkte pro Jahr. Dazu passt, dass der Kilometerstand bei E-Autos kein stärkerer Preistreiber ist.
+- **Bewertung:** Die Schätzungen streuen stark: von rund 0 bis 0,7 % (Norwegen, Fraunhofer) über 2,5–3,2 % (USA, ID.3) bis 4–7 % (ältere Autos in Deutschland). Der Unterschied liegt vor allem an der Methode. Feine Alterskontrollen mit logarithmiertem Kilometerstand drücken den Effekt; Vergleiche innerhalb eines Baujahrs zeigen ihn größer. Für den Rechner passt der Vergleich innerhalb desselben Baujahrs am besten. In Prozent ist der Effekt bei älteren, billigeren Autos größer als bei jungen.
+- **Empfehlung:** m = 3 % je 10.000 km für E-Auto und Verbrenner, mit Sensitivität 2–4 %. Für einen 10–16 Jahre alten Verbrenner sind 4–5 % ebenfalls vertretbar (Golf-Stichproben, Englmaier). Für die Konsistenz zwischen beiden Antrieben empfehle ich aber denselben Wert.
+- **Quellen:**
+  - [Roberson et al.: Battery-powered bargains? Assessing electric vehicle resale value in the United States, Environ. Res. Lett. 19 (2024), DOI 10.1088/1748-9326/ad3fce, 18.04.2024](https://iopscience.iop.org/article/10.1088/1748-9326/ad3fce)
+  - [Andreassen & Lind: Climate, Technology and Value, CESifo Working Paper 9814 (2022), Tabellen 3 und A-9; veröffentlicht in Environmental and Resource Economics 87 (2024)](https://www.ifo.de/DocDL/cesifo1_wp9814.pdf), [Journalfassung](https://link.springer.com/article/10.1007/s10640-024-00872-z)
+  - [Fraunhofer ISI (P. Plötz): Gebrauchte Elektrofahrzeuge in Deutschland, 01.06.2026](https://www.isi.fraunhofer.de/de/blog/2026/markt-gebrauchte-elektrofahrzeuge-perspektiven.html)
+  - [Englmaier, Schmöller, Stowasser: Price Discontinuities in an Online Market for Used Cars, Manuskriptfassung 07.06.2016 (Management Science 64(11), 2018)](https://www.stir.ac.uk/research/hub/file/1471783)
+  - [DAT: Valuating used electric cars? (SoH-Korrektur in SilverDAT), abgerufen 17.11.2026](https://www.datgroup.com/ev-residual-value/)
+  - [t-online: Wert des Autos ermitteln (Schwacke nur für Gewerbekunden), abgerufen 17.11.2026](https://www.t-online.de/mobilitaet/autos/id_50159016/wert-des-autos-ermitteln-so-gehen-sie-dabei-vor.html)
+  - AutoScout24-Stichproben, alle abgerufen 17.11.2026: [VW ID.3 EZ 2021](https://www.autoscout24.de/lst/vw/id.3/re_2021), [BMW i3 EZ 2014–2018](https://www.autoscout24.de/lst/bmw/i3?fregfrom=2014&fregto=2018&fuel=E&cy=D&atype=C), [Hyundai Ioniq Elektro EZ 2018](https://www.autoscout24.de/lst/hyundai/ioniq/re_2018?fuel=E), [VW Golf EZ 2016](https://www.autoscout24.de/lst/vw/golf/re_2016?fuel=B), [VW Golf EZ 2012](https://www.autoscout24.de/lst/vw/golf/re_2012?fuel=B)
+
+### 2. Wert von 8–12 Jahre alten E-Autos (Nov. 2026)
+
+- **Befund:** Die folgende Tabelle zeigt AutoScout24-Stichproben vom 17.11.2026. Der Median ist selbst errechnet, Dubletten sind entfernt. Die jährliche Rate ist der nominale Durchschnitt ab Neupreis: 1 − (Median/Neupreis)^(1/Alter), eigene Rechnung.
+
+| Modell (EZ, Akku) | n | Median-Angebotspreis | typische km | Neupreis (Grundpreis) | Alter | Restwert | Rate/Jahr |
+|---|---|---|---|---|---|---|---|
+| VW e-Golf 2017 (35,8 kWh) | 6 | 15.085 € | 32.000–147.000 | 35.900 € | 9,4 | 42 % | 8,8 % |
+| VW e-Golf 2015/16 (24,2 kWh) | 4 | 11.995 € | 27.000–85.000 | 34.900 € (35.900 € minus 1.000 €) | 10,9 | 34 % | 9,3 % |
+| BMW i3 2016 (60/94 Ah, teils REx) | 11 | 13.990 € | Median ca. 78.000 | 34.950–41.150 € | 10,4 | 34–40 % | 8,4–9,9 % |
+| Renault Zoe 2017 (22/41 kWh, teils Mietakku) | 6 | 8.910 € | 78.000–140.000 | 27.000 € + Akku (Kauf ca. 8.000 €) | 9,4 | 25–33 % | 11–14 % |
+| Renault Zoe 2018 | 16 | 9.378 € | Median 75.780 | wie oben | 8,4 | 27–35 % | 12–15 % |
+| Hyundai Ioniq Elektro 2018 (28 kWh) | 10 | 13.493 € | Median ca. 103.000 | 33.300–38.000 € | 8,4 | 36–41 % | 10–12 % |
+| Nissan Leaf 2017 (30 kWh) | 3 | 7.999 € | 56.000–105.000 | 33.960 € (mit Akku) | 9,4 | 24 % | 14 % |
+| Tesla Model S 2015 (70–90 kWh) | 7 | 18.900 € | Median ca. 211.000 | ab 75.800 € (70D) | 11,4 | ≤ 25 % | ≥ 11,5 % |
+
+  - Den e-Golf-Neupreis 2015/16 habe ich aus dem Aufpreis von 1.000 € für den Facelift 2017 zurückgerechnet. Den Aufpreis für die Kaufbatterie der Zoe gegenüber Mietakku habe ich nur für 2019 gefunden (8.090 €).
+  - *Querschnitt innerhalb eines Modells (eigene Rechnung):* Der e-Golf EZ 2020 kostet im Median rund 17.000 € (n = 12), EZ 2017 rund 15.100 €. Zwischen Alter 6 und 9 sind das rund 4 % pro Jahr bei gleichem Akku. Bis zu den 24-kWh-Autos von 2015/16 ergeben sich rund 7 % pro Jahr. Beim i3 2014–2018 ergibt die Regression bei gleichem Kilometerstand rund 6 % pro Jahr Altersabschlag, statistisch aber unsicher (Standardfehler 4 Prozentpunkte).
+  - *Studien:* Laut Fraunhofer ISI erreichen ältere E-Autos rund 30–35 % des Neupreises; in den ersten fünf Jahren verlieren sie 13–14 % pro Jahr, am stärksten am Anfang. In Norwegen (Andreassen & Lind) verlieren E-Autos 16–17 % pro Jahr gegenüber 10–11 % bei Benzinern. Der Unterschied geht fast ganz auf E-Autos mit weniger als 200 km Reichweite zurück; die Autoren erklären ihn mit technischem Fortschritt. Größere E-Autos verlieren dort nicht signifikant schneller als Benziner. In den USA (Roberson et al.) verlieren ältere E-Autos mit kurzer Reichweite schneller; neuere mit großer Reichweite halten ihren Wert besser.
+- **Vorbehalt zur Übertragbarkeit auf einen ID.3 von 2021: stark.** Die Proxies haben 22–41 kWh und 150–300 km Normreichweite; die Studien zeigen genau bei kurzer Reichweite den schnelleren Wertverlust. Ein ID.3 mit 58 kWh sollte deshalb eher besser altern. Dagegen sprechen drei Punkte:
+  - Das Angebot ist beim ID.3 viel größer als bei den Nischenmodellen e-Golf und i3.
+  - Neue Modelle könnten künftig deutlich mehr Reichweite bieten.
+  - Die Neupreise der Proxies sind nominal (2015–2018) und vor Abzug der damaligen Kaufprämie von 4.000 €. Gemessen am Preis nach Förderung wären die Restwertquoten höher.
+  - Zudem sind die Stichproben klein, und die Angebotspreise liegen über den erzielbaren Preisen.
+- **Bewertung:** Durchschnittlich 9–14 % pro Jahr ab Neupreis; bei den Kompakten mit größerem Akku (e-Golf 2017, i3) eher 8–10 %. Weil die ersten drei Jahre steil sind (DAT: 51,5 % nach drei Jahren, siehe 03-wertverlust-akku.md), ist die Rate ab Jahr 5 niedriger als dieser Lebensdurchschnitt. Querschnitte innerhalb eines Modells zeigen rund 4–8 % pro Jahr. a = 9 % für ein 5 Jahre altes E-Auto ist damit eher vorsichtig als zu optimistisch.
+- **Empfehlung:** a = 9 % beibehalten. Als vorsichtige Variante, die den Technologie-Abschlag aus Norwegen einpreist, a = 10 %.
+- **Quellen:**
+  - AutoScout24-Stichproben, alle abgerufen 17.11.2026: [VW e-Golf EZ 2017](https://www.autoscout24.de/lst/vw/e-golf/re_2017), [VW e-Golf alle EZ](https://www.autoscout24.de/lst/vw/e-golf?fuel=E&sort=standard&desc=0&atype=C&cy=D), [VW e-Golf EZ 2016](https://www.autoscout24.de/lst/vw/e-golf/re_2016), [BMW i3 EZ 2016](https://www.autoscout24.de/lst/bmw/i3/re_2016?fuel=E), [Renault Zoe EZ 2017](https://www.autoscout24.de/lst/renault/zoe/re_2017?fuel=E), [Renault Zoe EZ 2018](https://www.autoscout24.de/lst/renault/zoe/re_2018?fuel=E), [Hyundai Ioniq EZ 2018](https://www.autoscout24.de/lst/hyundai/ioniq/re_2018?fuel=E), [Nissan Leaf EZ 2017](https://www.autoscout24.de/lst/nissan/leaf/re_2017), [Tesla Model S EZ 2015](https://www.autoscout24.de/lst/tesla/model-s/re_2015)
+  - Neupreise: [ecomento: e-Golf 2017 ab 35.900 €, 16.02.2017](https://ecomento.de/2017/02/16/neuer-elektroauto-golf-2017-kostet-ab-35-900-euro); [electrive: e-Golf-Facelift, Aufschlag 1.000 €, 16.02.2017](https://www.electrive.net/2017/02/16/neuer-volkswagen-e-golf-konfigurierbar/); [bimmertoday: i3 94Ah ab 36.150 €, i3-Grundpreis 34.950 €, 02.05.2016](https://www.bimmertoday.de/2016/05/02/bmw-i3-94ah-300-kilometer-reichweite-protonic-blue); [ADAC Autokatalog: Zoe Z.E. 40 Intens 27.000 € zzgl. Batteriemiete](https://www.adac.de/rund-ums-fahrzeug/autokatalog/marken-modelle/renault/zoe/1generation/261853/); [ecomento: Aufpreis Kauf- statt Mietbatterie 8.090 €, 01.07.2019](https://ecomento.de/2019/07/01/neuer-renault-zoe-kostet-ab-21-900-euro/); [Hyundai-Presse: Ioniq Elektro ab 33.300 €](https://www.hyundai.news/de/articles/press-releases/hyundai-ioniq-hybrid-und-elektro-kommen-in-drei-ausstattungslinien.html); [ecomento: Leaf 30 kWh Acenta 33.960 € mit Akku, 16.10.2015](https://ecomento.de/2015/10/16/fahrbericht-nissan-leaf-mehr-reichweite-und-verbesserungen-im-detail); [ecomento: Model S 70D ab 75.800 €, April 2015](https://ecomento.de/?p=23599); [ADAC Autokatalog: ID.3 Pro Performance (05/21–12/22) 38.060 €](https://www.adac.de/rund-ums-fahrzeug/autokatalog/marken-modelle/vw/id3/1generation/320815)
+  - [Fraunhofer ISI, 01.06.2026](https://www.isi.fraunhofer.de/de/blog/2026/markt-gebrauchte-elektrofahrzeuge-perspektiven.html); [Andreassen & Lind, CESifo WP 9814](https://www.ifo.de/DocDL/cesifo1_wp9814.pdf); [Roberson et al. 2024](https://iopscience.iop.org/article/10.1088/1748-9326/ad3fce)
+
+### 3. Ende der Akku-Garantie (meist 8 Jahre / 160.000 km)
+
+- **Befund:** Eine Auswertung, die einen Preissprung beim Garantieende misst: keine belastbare Quelle gefunden, weder für Deutschland noch für die USA. AAA und Händlerportale behaupten einen Einfluss der Garantie auf den Restwert, beziffern ihn aber nicht. Ein Mechanismus existiert: Laut DAT fließt die Herstellergarantie, etwa 70 % SoH nach 8 Jahren oder 160.000 km, in den Soll-SoH ein, gegen den SilverDAT den gemessenen Akkuzustand bewertet. Ein Sprung ist damit nicht belegt. Schwache Hinweise aus den Stichproben (eigene Beobachtung):
+  - e-Golf von 2015–2017 haben die 8 Jahre Garantie bereits erreicht oder überschritten und werden trotzdem für 12.000–15.000 € angeboten.
+  - Tesla Model S von 2015 kosten bei 160.000–315.000 km ohne erkennbaren Kilometer-Gradienten rund 18.000–19.000 € (n = 7).
+  - Bei i3 und Ioniq um 100.000–160.000 km zeigt sich kein Bruch. Die Stichproben sind aber viel zu klein, um einen Sprung auszuschließen.
+- **Bewertung:** Weder belegt noch widerlegt.
+- **Empfehlung:** Keinen Sprung modellieren. Im Hinweistext erwähnen, dass nach Garantieende ein Akku-Zertifikat (SoH) für den Verkaufspreis wichtiger wird. Das Risiko hohen Akkuverschleißes deckt die Akku-Rücklage ab (03-wertverlust-akku.md, Abschnitt 8), nicht der Restwert.
+- **Quellen:**
+  - [DAT: Valuating used electric cars?, abgerufen 17.11.2026](https://www.datgroup.com/ev-residual-value/)
+  - [AAA: Understanding EV depreciation, abgerufen 17.11.2026](https://ev.aaa.com/articles/understanding-ev-depreciation-what-used-ev-buyers-need-to-know/)
+  - AutoScout24-Stichproben wie in Abschnitt 2, abgerufen 17.11.2026
+
+### 4. Verbrenner: Laufleistung und Alter (6–16 Jahre, Kompakte mit Benziner)
+
+- **Befund:**
+  - *Laufleistung:* Siehe Abschnitt 1. USA: Verbrenner rund −2,9 % je 10.000 km (Roberson et al. 2024). Norwegen: Elastizität −0,07, also rund −0,7 % je 10.000 km bei 100.000 km. Deutschland 2009: rund −7 % des Durchschnittspreises je 10.000 km (Englmaier et al.). Eigene Rechnung: Golf EZ 2016 −5,3 %, EZ 2012 −4,8 % je 10.000 km. Einen Benziner-spezifischen Wert für 10–16 Jahre alte Kompakte in Deutschland aus einer Studie: keine belastbare Quelle gefunden.
+  - *Alter (Querschnitt AutoScout24-Mediane VW Golf, alle Antriebe, 17.11.2026):*
+    - EZ 2010: 4.966 €
+    - EZ 2012: 6.225 €
+    - EZ 2014: 9.336 €
+    - EZ 2016: 11.466 €
+    - EZ 2018: 13.815 € (aus 03-wertverlust-akku.md)
+    - Daraus pro Jahr (eigene Rechnung): 2018 → 2016 8,9 %; 2016 → 2014 9,8 %; 2012 → 2010 10,7 % (beide Golf 6). 2014 → 2012 ergibt 18,3 %, verzerrt durch den Modellwechsel zum Golf 7 Ende 2012. Diese Raten enthalten die übliche Laufleistung der Inserate; im Golf-2016-Sample sind das rund 11.500 km pro Jahr.
+- **Bewertung:** Die prozentuale Altersrate steigt beim Verbrenner im Alter leicht: rund 9 % mit 8–10 Jahren, rund 10–11 % mit 12–16 Jahren. Der Laufleistungseffekt liegt mit 3–5 % je 10.000 km eher etwas höher als beim E-Auto.
+- **Empfehlung:** a = 10 % für den Verbrenner. Der Rechner betrachtet ihn ab 6–10 Jahren und hält ihn bis etwa 12–16 Jahre. Dazu m = 3 % wie beim E-Auto, damit beide Seiten gleich behandelt werden.
+- **Quellen:**
+  - AutoScout24-Mediane, Stand 17.11.2026: [VW Golf EZ 2010](https://www.autoscout24.de/lst/vw/golf/re_2010), [EZ 2012](https://www.autoscout24.de/lst/vw/golf/re_2012), [EZ 2014](https://www.autoscout24.de/lst/vw/golf/re_2014), [EZ 2016](https://www.autoscout24.de/lst/vw/golf/re_2016)
+  - Studien wie in Abschnitt 1
+
+### 5. Empfohlenes Modell und Beispielrechnung
+
+- **Modell:** Restwert = P × (1 − a)^n × (1 − m)^(Δkm/10.000), mit Δkm = (km_jahr − 12.000) × n.
+- **Parameter:**
+
+| Parameter | E-Auto | Verbrenner | Evidenz |
+|---|---|---|---|
+| a (Alter, bei üblicher Laufleistung) | 9 % (vorsichtig 10 %) | 10 % | Abschnitte 2 und 4; schwach bis mittel |
+| m (je 10.000 km Abweichung) | 3 % | 3 % (vertretbar bis 5 %) | Abschnitt 1; mittel |
+| Referenz | 12.000 km/Jahr | 12.000 km/Jahr | siehe unten |
+
+- **Herleitung der Referenzfahrleistung:** Laut KBA fuhren E-Autos 2025 im Schnitt 11.312 km, Benziner 8.406 km und Plug-in-Hybride 13.575 km. Das Mittel über alle Pkw liegt bei rund 11.400 km (laut Sekundärquelle). Die Inserate, aus denen a geschätzt ist, haben rund 9.000–12.000 km pro Jahr (i3 rund 7.000, Ioniq 2018 rund 12.200, Golf 2016 rund 11.500). 12.000 km ist eine runde Referenz in diesem Bereich.
+- **Beispiel E-Auto, 22.000 €, 6 Jahre, 16.500 km/Jahr (a = 9 %, m = 3 %):**
+  - Altersfaktor: 0,91^6 = 0,5679
+  - Δkm = (16.500 − 12.000) × 6 = 27.000 km → 0,97^2,7 = 0,9211
+  - Restwert = 22.000 × 0,5679 × 0,9211 = **11.507 €** (bisher 12.493 €, also −986 € bzw. −7,9 %)
+  - Mit a = 10 %: 22.000 × 0,5314 × 0,9211 = 10.769 €
+- **Referenzfall, 22.000 €, 6 Jahre, 11.000 km/Jahr:**
+  - Δkm = (11.000 − 12.000) × 6 = −6.000 km → 0,97^(−0,6) = 1,0184
+  - Restwert = 22.000 × 0,5679 × 1,0184 = **12.724 €**
+  - Mit a = 10 %: 11.907 €
+- **Sensitivität (a = 9 %):** m = 2 % ergibt 11.830 € bzw. 12.645 €; m = 4 % ergibt 11.189 € bzw. 12.803 €. Der Unterschied zwischen 16.500 und 11.000 km/Jahr beträgt über 6 Jahre also 6–13 % des Restwerts.
+- **Plausibilitätscheck:** 11.507 € entsprechen rund 30 % des Listenneupreises eines ID.3 Pro Performance von 2021 (38.060 €, ADAC). Das passt zu den heutigen 9–11 Jahre alten e-Golf und i3 (34–42 %), zu Fraunhofer ISI („ältere“ E-Autos 30–35 %) und liegt über dem Model S 2015 mit über 200.000 km (≤ 25 %). Der Kilometerstand des Beispielautos beim Verkauf ist nicht bekannt. Mit einem typischen Stand beim Kauf (ID.3 EZ 2021: Median rund 44.000 km) wären es rund 143.000 km.
+- **Quellen:**
+  - [KBA: Pressemitteilung 38/2026, Verkehr in Kilometern, 09.09.2026](https://www.kba.de/DE/Presse/Pressemitteilungen/Allgemein/2026/pm38_2026_verkehr_in_kilometern.html)
+  - [Sekundärquelle zum Pkw-Durchschnitt 2025 (ca. 11.400 km): ecomento](https://ecomento.de/?p=135966)
+  - Übrige Quellen wie in den Abschnitten 1–4

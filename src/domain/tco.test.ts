@@ -1,24 +1,24 @@
 import { describe, expect, it } from 'vitest';
 import { buyMode, dieselLongRun, REFERENCE_INPUTS } from './scenarios.fixture';
-import { computeTco, priceTrajectory } from './tco';
+import { computeTco, effectiveDepreciationPct, priceTrajectory } from './tco';
 
 describe('computeTco', () => {
   it('matches the reference totals for the switch scenario', () => {
     const result = computeTco(REFERENCE_INPUTS);
-    expect(Math.round(result.ice.total)).toBe(23738);
-    expect(Math.round(result.ev.total)).toBe(25808);
+    expect(Math.round(result.ice.total)).toBe(23946);
+    expect(Math.round(result.ev.total)).toBe(26148);
   });
 
   it('adds the combustion purchase fees in buy mode', () => {
     const result = computeTco(buyMode);
-    expect(Math.round(result.ice.total)).toBe(23858);
-    expect(Math.round(result.ev.total)).toBe(25808);
+    expect(Math.round(result.ice.total)).toBe(24066);
+    expect(Math.round(result.ev.total)).toBe(26148);
   });
 
   it('matches the reference totals for ten years of high-mileage diesel driving', () => {
     const result = computeTco(dieselLongRun);
-    expect(Math.round(result.ice.total)).toBe(68925);
-    expect(Math.round(result.ev.total)).toBe(55678);
+    expect(Math.round(result.ice.total)).toBe(70203);
+    expect(Math.round(result.ev.total)).toBe(57503);
   });
 
   it('uses an explicit residual value instead of the estimate', () => {
@@ -44,20 +44,20 @@ describe('computeTco', () => {
   it('starts the sale curve at the one-off costs and ends at the total', () => {
     const result = computeTco(REFERENCE_INPUTS);
     expect(result.ev.curve[0]).toBe(1470);
-    expect(Math.round(result.ev.curve[5])).toBe(25808);
+    expect(Math.round(result.ev.curve[5])).toBe(26148);
   });
 
   it('continues the sale curve for the forecast years at the same yearly cost', () => {
-    // 845 l × 1.98 € + 98 + 650 + 800 + 150 + 70 = 3441.10 € a year, with no value loss.
+    // 715 l × 1.98 € + 98 + 650 + 800 + 150 + 70 = 3183.70 € a year, with no value loss at the reference mileage.
     const steady = {
       ...REFERENCE_INPUTS,
-      scenario: { ...REFERENCE_INPUTS.scenario, interestRatePct: 0 },
+      scenario: { ...REFERENCE_INPUTS.scenario, interestRatePct: 0, kmPerYear: 11000 },
       ice: { ...REFERENCE_INPUTS.ice, depreciationPct: 0, fuelPriceGrowthPct: 0 },
     };
     const { ice } = computeTco(steady);
-    expect(ice.curve[5]).toBeCloseTo(17205.5);
-    expect(ice.forecast[0]).toBeCloseTo(20646.6);
-    expect(ice.forecast[1]).toBeCloseTo(24087.7);
+    expect(ice.curve[5]).toBeCloseTo(15918.5);
+    expect(ice.forecast[0]).toBeCloseTo(19102.2);
+    expect(ice.forecast[1]).toBeCloseTo(22285.9);
   });
 
   it('keeps a residual of zero flat and adds the EV tax once the exemption ends', () => {
@@ -82,5 +82,32 @@ describe('computeTco', () => {
     expect(mix.ac).toBeCloseTo(0.15);
     expect(mix.dc).toBeCloseTo(0.15);
     expect(mix.avgPriceEurPerKwh).toBeCloseTo(0.431);
+  });
+});
+
+describe('effectiveDepreciationPct', () => {
+  it('keeps the rate at 11,000 km a year', () => {
+    expect(effectiveDepreciationPct(9, 11000)).toBeCloseTo(9);
+  });
+
+  it('adds 3 % of value loss per 10,000 km above the reference', () => {
+    // 1 − 0.91 × 0.97
+    expect(effectiveDepreciationPct(9, 21000)).toBeCloseTo(11.73);
+  });
+
+  it('lowers the loss below the reference but never turns it into a gain', () => {
+    // 1 − 0.91 / 0.97
+    expect(effectiveDepreciationPct(9, 1000)).toBeCloseTo(6.186, 3);
+    expect(effectiveDepreciationPct(0, 3000)).toBe(0);
+  });
+
+  it('values a 22,000 € EV after six years at 16,500 km a year at about 11,300 €', () => {
+    const inputs = {
+      ...REFERENCE_INPUTS,
+      scenario: { ...REFERENCE_INPUTS.scenario, years: 6, kmPerYear: 16500 },
+      ev: { ...REFERENCE_INPUTS.ev, priceEur: 22000, depreciationPct: 9 },
+    };
+    // 22,000 € × 0.91^6 × 0.97^3.3
+    expect(Math.round(computeTco(inputs).ev.residualValue)).toBe(11298);
   });
 });

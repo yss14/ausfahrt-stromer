@@ -73,6 +73,23 @@ export function priceTrajectory(startPrice: number, growthPct: number, years: nu
   return Array.from({ length: years }, (_, i) => startPrice * Math.pow(1 + growthPct / 100, i));
 }
 
+/** Mileage the yearly depreciation rates assume (KBA 2025: 10,616 km per car, 11,312 km per EV). */
+export const REFERENCE_KM_PER_YEAR = 11_000;
+
+/**
+ * Value lost per 10,000 km driven above the reference, at the same age, and gained
+ * below it. US listings show about 3 % for combustion cars and EVs alike
+ * (Roberson et al. 2024).
+ */
+const VALUE_LOSS_PER_10000_KM = 0.03;
+
+/** Yearly value loss at the given mileage. A car does not gain value by standing still. */
+export function effectiveDepreciationPct(depreciationPct: number, kmPerYear: number): number {
+  const ageFactor = 1 - depreciationPct / 100;
+  const mileageFactor = Math.pow(1 - VALUE_LOSS_PER_10000_KM, (kmPerYear - REFERENCE_KM_PER_YEAR) / 10_000);
+  return Math.max(0, (1 - ageFactor * mileageFactor) * 100);
+}
+
 type ValueTrajectory = { start: number; residual: number; autoResidual: number; path: number[] };
 
 /**
@@ -162,8 +179,18 @@ export function computeTco(inputs: CalculatorInputs, kmOverride?: number): TcoRe
   const fuelPrices = priceTrajectory(ice.fuelPriceEurPerL, ice.fuelPriceGrowthPct, horizon);
   const powerPrices = priceTrajectory(mix.avgPriceEurPerKwh, ev.electricityPriceGrowthPct, horizon);
 
-  const iceValue = valueTrajectory(ice.valueEur, ice.depreciationPct, ice.residualOverrideEur, years);
-  const evValue = valueTrajectory(ev.priceEur, ev.depreciationPct, ev.residualOverrideEur, years);
+  const iceValue = valueTrajectory(
+    ice.valueEur,
+    effectiveDepreciationPct(ice.depreciationPct, km),
+    ice.residualOverrideEur,
+    years,
+  );
+  const evValue = valueTrajectory(
+    ev.priceEur,
+    effectiveDepreciationPct(ev.depreciationPct, km),
+    ev.residualOverrideEur,
+    years,
+  );
 
   const iceSide = buildSide(
     iceValue,

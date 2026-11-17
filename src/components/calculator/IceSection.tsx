@@ -117,6 +117,7 @@ export function IceSection({
           wide
           endYear={scenario.startYear + scenario.years}
           depreciationPct={ice.depreciationPct}
+          kmPerYear={scenario.kmPerYear}
           autoResidualEur={autoResidualEur}
           value={ice.residualOverrideEur}
           onChange={(value) => set('residualOverrideEur', value)}

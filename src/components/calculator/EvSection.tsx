@@ -70,6 +70,7 @@ export function EvSection({ ev, scenario, result, set }: EvSectionProps) {
         <ResidualField
           endYear={scenario.startYear + scenario.years}
           depreciationPct={ev.depreciationPct}
+          kmPerYear={scenario.kmPerYear}
           autoResidualEur={result.ev.autoResidualValue}
           value={ev.residualOverrideEur}
           onChange={(value) => set('residualOverrideEur', value)}

@@ -61,6 +61,7 @@
   "residual": {
     "label": "Restwert Anfang {year} (leer = automatisch)",
     "estimated": "Geschätzt: <b>{value}</b> bei −{pct} % pro Jahr",
+    "estimatedForMileage": "Geschätzt: <b>{value}</b> bei −{pct} % pro Jahr (mit {km} km/Jahr)",
     "overridden": "Automatisch wären es {value}"
   },
   "ice": {
@@ -80,7 +81,7 @@
     "value": "{mode, select, buy {Kaufpreis} other {Heutiger Verkaufswert (optional)}}",
     "valueHint": "{mode, select, buy {Preis des gebrauchten Verbrenners} other {Was du beim Umstieg für ihn bekommst. 0 = nicht anrechnen}}",
     "depreciation": "Wertverlust",
-    "depreciationHint": "6–10 Jahre alte Kompakte: rund 8–10 %",
+    "depreciationHint": "Bei 11.000 km/Jahr. 6–10 Jahre alte Kompakte: rund 8–10 %",
     "runningGroup": "Laufende Kosten",
     "tax": "Kfz-Steuer",
     "insurance": "Versicherung (KH + Kasko)",
@@ -119,7 +120,7 @@
     "exemptionExpired": "Steuerbefreiung abgelaufen ({year})",
     "exemptionActive": "Steuerfrei bis 31.12.{year}: <b>{free} von {years}</b> Jahren",
     "depreciation": "Wertverlust",
-    "depreciationHint": "3–6 Jahre alte E-Autos: rund 6–9 %",
+    "depreciationHint": "Bei 11.000 km/Jahr. 3–6 Jahre alte E-Autos: rund 6–9 %",
     "chargingGroup": "Strom & Laden",
     "consumption": "Verbrauch (Bordcomputer)",
     "consumptionHint": "Jahresschnitt inkl. Winter",
@@ -305,7 +306,7 @@
       "items": {
         "tco": "Verglichen werden die Gesamtkosten (TCO) über den Zeitraum. Der Wertverlust ist Startwert minus Restwert am Ende.",
         "tradeIn": "Beim Umstieg zählt der heutige Verkaufswert deines Verbrenners als Startwert der Option „behalten“. Verkaufst du ihn, fließt das Geld in den E-Auto-Kauf. Beide Sichtweisen ergeben dieselbe Differenz.",
-        "residual": "Lässt du einen Restwert leer, wird er aus dem jährlichen Wertverlust geschätzt.",
+        "residual": "Lässt du einen Restwert leer, wird er aus dem jährlichen Wertverlust geschätzt. Der gilt für 11.000 km pro Jahr. Je 10.000 km mehr sinkt der Wert zusätzlich um 3 %, bei weniger Kilometern steigt er entsprechend.",
         "interest": "Kapitalkosten: Zins auf den jeweils im Auto gebundenen Wert, Jahr für Jahr.",
         "taxExemption": "Die Kfz-Steuer-Befreiung gilt 10 Jahre ab Erstzulassung, längstens bis 31.12.2035, und geht auf den Käufer über. Danach zahlt ein E-Auto die halbierte gewichtsbasierte Steuer.",
         "oneOffs": "Einmalige Reparaturen und Einmalkosten werden im ersten Jahr angesetzt."
