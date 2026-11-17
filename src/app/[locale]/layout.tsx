@@ -5,6 +5,7 @@ import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Overpass, Overpass_Mono } from 'next/font/google';
 import { hasLocale, NextIntlClientProvider } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { SiteFooter } from '@/components/content/SiteFooter';
 import { SITE_URL, THEME_COLOR } from '@/config/site';
 import { routing } from '@/i18n/routing';
 import '@/styles/globals.css';
@@ -52,7 +53,10 @@ export default async function LocaleLayout({ children, params }: LayoutProps<'/[
   return (
     <html lang={locale} className={`${overpass.variable} ${overpassMono.variable}`}>
       <body>
-        <NextIntlClientProvider>{children}</NextIntlClientProvider>
+        <NextIntlClientProvider>
+          {children}
+          <SiteFooter />
+        </NextIntlClientProvider>
         <Analytics />
         <SpeedInsights />
       </body>

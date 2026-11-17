@@ -2,14 +2,18 @@ import { createNavigation } from 'next-intl/navigation';
 import type { Locale } from 'next-intl';
 import { routing } from './routing';
 
-export const { getPathname } = createNavigation(routing);
+export const { Link, getPathname } = createNavigation(routing);
 
-export const homePath = (locale: Locale) => getPathname({ locale, href: '/' });
+/** Every page of the site, in sitemap order. */
+export const PAGES = ['/', '/impressum', '/datenschutz'] as const;
+export type Page = (typeof PAGES)[number];
 
-/** hreflang map for the home page, including x-default. */
-export function homeLanguageAlternates(): Record<string, string> {
+export const pagePath = (locale: Locale, page: Page) => getPathname({ locale, href: page });
+
+/** hreflang map for a page, including x-default. */
+export function languageAlternates(page: Page): Record<string, string> {
   return Object.fromEntries([
-    ...routing.locales.map((locale) => [locale, homePath(locale)]),
-    ['x-default', homePath(routing.defaultLocale)],
+    ...routing.locales.map((locale) => [locale, pagePath(locale, page)]),
+    ['x-default', pagePath(routing.defaultLocale, page)],
   ]);
 }

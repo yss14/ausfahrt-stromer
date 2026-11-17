@@ -336,5 +336,100 @@
         "co2Price": "CO₂-Preis 2027"
       }
     }
+  },
+  "footer": {
+    "label": "Rechtliches und Quellcode",
+    "imprint": "Impressum",
+    "privacy": "Datenschutz",
+    "source": "Quellcode auf GitHub"
+  },
+  "legal": {
+    "back": "Zurück zum Rechner",
+    "emailLabel": "E-Mail"
+  },
+  "imprint": {
+    "title": "Impressum",
+    "metaTitle": "Impressum · Ausfahrt Stromer",
+    "metaDescription": "Anbieterkennzeichnung von Ausfahrt Stromer nach § 5 DDG.",
+    "provider": "Angaben gemäß § 5 DDG",
+    "contact": "Kontakt",
+    "responsible": "Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV",
+    "note": "Ausfahrt Stromer ist ein privates, nicht kommerzielles Projekt. Die Ergebnisse sind Beispielrechnungen auf Grundlage deiner Eingaben und keine Finanz-, Steuer- oder Rechtsberatung."
+  },
+  "privacy": {
+    "title": "Datenschutzerklärung",
+    "metaTitle": "Datenschutz · Ausfahrt Stromer",
+    "metaDescription": "Welche Daten beim Besuch von Ausfahrt Stromer verarbeitet werden und welche Rechte du hast.",
+    "updated": "Stand: 17. November 2026",
+    "sections": {
+      "summary": {
+        "title": "Kurz gesagt",
+        "paragraphs": [
+          "Ausfahrt Stromer kommt ohne Konto, ohne Cookies und ohne Werbung aus. Deine Eingaben im Rechner bleiben in deinem Browser und werden nicht an einen Server geschickt.",
+          "Personenbezogene Daten fallen nur beim Aufruf der Seite an: beim Hosting sowie bei der cookielosen Reichweiten- und Ladezeitmessung. Beides läuft über Vercel."
+        ]
+      },
+      "controller": {
+        "title": "Verantwortlicher",
+        "paragraphs": [
+          "Verantwortlich für die Datenverarbeitung auf dieser Website im Sinne der Datenschutz-Grundverordnung (DSGVO) ist:"
+        ]
+      },
+      "hosting": {
+        "title": "Hosting und Server-Protokolle",
+        "paragraphs": [
+          "Die Seite wird von der Vercel Inc., 440 N Barranca Avenue #4133, Covina, CA 91723, USA, ausgeliefert. Bei jedem Aufruf verarbeitet Vercel technisch nötige Daten: deine IP-Adresse und den daraus abgeleiteten ungefähren Standort, Datum und Uhrzeit, die aufgerufene Adresse sowie Angaben zu Browser und Betriebssystem.",
+          "Das ist erforderlich, um die Seite auszuliefern und vor Missbrauch zu schützen. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO. Mein berechtigtes Interesse ist ein sicherer und stabiler Betrieb.",
+          "Vercel verarbeitet die Daten in meinem Auftrag auf Grundlage eines Vertrags zur Auftragsverarbeitung (Art. 28 DSGVO) und speichert sie nur so lange, wie es für Betrieb und Sicherheit nötig ist. Dabei können Daten in die USA übermittelt werden. Vercel ist nach eigenen Angaben unter dem EU-U.S. Data Privacy Framework zertifiziert (Angemessenheitsbeschluss nach Art. 45 DSGVO). Zusätzlich enthält der Vertrag die EU-Standardvertragsklauseln (Art. 46 Abs. 2 lit. c DSGVO)."
+        ]
+      },
+      "analytics": {
+        "title": "Reichweitenmessung mit Vercel Web Analytics",
+        "paragraphs": [
+          "Um zu verstehen, wie die Seite genutzt wird, verwende ich Vercel Web Analytics. Pro Seitenaufruf werden erfasst: Zeitpunkt, aufgerufene Adresse, die zuvor besuchte Seite, Land, Region und Stadt sowie Betriebssystem, Browser und Gerätetyp.",
+          "Web Analytics setzt keine Cookies und speichert nichts auf deinem Gerät. Wiederholte Aufrufe werden über einen Hashwert aus der Anfrage zusammengefasst. Diese Besuchssitzung wird nach 24 Stunden verworfen, ein dauerhaftes Profil entsteht nicht.",
+          "Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO. Mein berechtigtes Interesse ist, die Seite anhand ihrer Nutzung zu verbessern. Empfänger und Übermittlung in die USA wie beim Hosting."
+        ]
+      },
+      "speedInsights": {
+        "title": "Ladezeitmessung mit Vercel Speed Insights",
+        "paragraphs": [
+          "Vercel Speed Insights misst, wie schnell die Seite lädt und reagiert. Erfasst werden: aufgerufene Adresse, Messwerte zur Ladezeit (Web Vitals) samt betroffenem Seitenelement, Netzwerktyp (z. B. 4G), Browser, Betriebssystem, Gerätetyp und Land.",
+          "Die Messwerte werden laut Vercel nicht mit einzelnen Besuchern oder IP-Adressen verknüpft. Es werden keine Cookies gesetzt. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO. Mein berechtigtes Interesse ist eine schnelle und gut funktionierende Seite. Empfänger und Übermittlung in die USA wie beim Hosting."
+        ]
+      },
+      "localStorage": {
+        "title": "Speicherung deiner Eingaben im Browser",
+        "paragraphs": [
+          "Damit deine Eingaben beim nächsten Besuch noch da sind, speichert der Rechner sie im lokalen Speicher (localStorage) deines Browsers. Sie verlassen dein Gerät dabei nicht, und ich kann sie nicht einsehen.",
+          "Mit „Beispielwerte laden“ oder über die Einstellungen deines Browsers löschst du sie. Die Speicherung ist für die von dir genutzte Funktion des Rechners erforderlich (§ 25 Abs. 2 Nr. 2 TDDDG)."
+        ]
+      },
+      "shareLink": {
+        "title": "Teilen per Link",
+        "paragraphs": [
+          "Wenn du „Link teilen“ nutzt, stehen deine geänderten Eingaben im Link hinter dem #-Zeichen. Diesen Teil einer Adresse schickt der Browser nicht an den Server. Wer den Link von dir bekommt, sieht aber deine Eingaben."
+        ]
+      },
+      "fonts": {
+        "title": "Schriftarten",
+        "paragraphs": [
+          "Die Schriftarten sind Teil der Seite und werden von dieser Domain geladen. Es besteht keine Verbindung zu Google Fonts oder anderen Schriftanbietern."
+        ]
+      },
+      "links": {
+        "title": "Links zu anderen Seiten",
+        "paragraphs": [
+          "Die Seite verlinkt auf Quellen wie ADAC oder BDEW und auf den Quellcode bei GitHub. Erst wenn du einen dieser Links anklickst, werden Daten an die jeweilige Seite übertragen. Dort gilt deren Datenschutzerklärung."
+        ]
+      },
+      "rights": {
+        "title": "Deine Rechte",
+        "paragraphs": [
+          "Du hast das Recht auf Auskunft (Art. 15 DSGVO), Berichtigung (Art. 16 DSGVO), Löschung (Art. 17 DSGVO), Einschränkung der Verarbeitung (Art. 18 DSGVO) und Datenübertragbarkeit (Art. 20 DSGVO). Verarbeitungen auf Grundlage berechtigter Interessen kannst du widersprechen (Art. 21 DSGVO). Schreib mir dafür eine E-Mail an die oben genannte Adresse.",
+          "Außerdem kannst du dich bei einer Datenschutz-Aufsichtsbehörde beschweren (Art. 77 DSGVO). Für mich zuständig ist:"
+        ]
+      }
+    }
   }
 }

@@ -1,6 +1,6 @@
 import { useLocale, useTranslations } from 'next-intl';
 import { SITE_URL } from '@/config/site';
-import { homePath } from '@/i18n/navigation';
+import { pagePath } from '@/i18n/navigation';
 import { JsonLd } from './JsonLd';
 
 export function WebApplicationJsonLd() {
@@ -12,7 +12,7 @@ export function WebApplicationJsonLd() {
         '@context': 'https://schema.org',
         '@type': 'WebApplication',
         name: t('siteName'),
-        url: new URL(homePath(locale), SITE_URL).href,
+        url: new URL(pagePath(locale, '/'), SITE_URL).href,
         description: t('description'),
         inLanguage: locale,
         applicationCategory: 'FinanceApplication',

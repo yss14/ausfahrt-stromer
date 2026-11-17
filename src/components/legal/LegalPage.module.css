@@ -1,0 +1,45 @@
+.page {
+  max-width: 760px;
+  margin: 0 auto;
+  display: grid;
+  gap: 22px;
+}
+
+.back {
+  color: var(--accent);
+  font-size: 14px;
+  width: fit-content;
+}
+
+.back::before {
+  content: '← ';
+}
+
+.section {
+  display: grid;
+  gap: 8px;
+}
+
+.section h2 {
+  font-size: 18px;
+}
+
+.section p,
+.address {
+  color: var(--ink-2);
+  line-height: 1.6;
+}
+
+.address {
+  font-style: normal;
+}
+
+.section a,
+.address a {
+  color: var(--accent);
+}
+
+.muted {
+  color: var(--ink-3);
+  font-size: 14px;
+}
