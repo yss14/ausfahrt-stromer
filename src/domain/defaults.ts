@@ -15,7 +15,7 @@ export const DEFAULT_INPUTS: CalculatorInputs = {
     fuelPriceEurPerL: 2.15,
     fuelPriceGrowthPct: 3,
     valueEur: 12000,
-    depreciationPct: 9,
+    depreciationPct: 10,
     residualOverrideEur: null,
     annualTaxEur: 98,
     insuranceEur: 650,

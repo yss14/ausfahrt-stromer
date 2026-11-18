@@ -81,7 +81,7 @@
     "value": "{mode, select, buy {Kaufpreis} other {Heutiger Verkaufswert (optional)}}",
     "valueHint": "{mode, select, buy {Preis des gebrauchten Verbrenners} other {Was du beim Umstieg für ihn bekommst. 0 = nicht anrechnen}}",
     "depreciation": "Wertverlust",
-    "depreciationHint": "Bei 11.000 km/Jahr. 6–10 Jahre alte Kompakte: rund 8–10 %",
+    "depreciationHint": "Bei 11.000 km/Jahr. Kompakte: rund 9 % mit 8–10 Jahren, 10–11 % mit 12–16 Jahren",
     "runningGroup": "Laufende Kosten",
     "tax": "Kfz-Steuer",
     "insurance": "Versicherung (KH + Kasko)",

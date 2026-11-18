@@ -1,15 +1,15 @@
 import { DEFAULT_INPUTS } from './defaults';
 import type { CalculatorInputs } from './inputs';
 import { isRecord, parseInputs } from './parse';
-import { V1_LINK_BASE } from './shareLinkBases';
+import { V1_LINK_BASE, V2_LINK_BASE } from './shareLinkBases';
 
 /**
  * New links store their changes relative to DEFAULT_INPUTS. Before the defaults
  * change, freeze them in shareLinkBases.ts under this version and bump it, so old
  * links still open with the values their sender saw.
  */
-const CURRENT_VERSION = 'v2';
-const FROZEN_BASES: Partial<Record<string, CalculatorInputs>> = { v1: V1_LINK_BASE };
+const CURRENT_VERSION = 'v3';
+const FROZEN_BASES: Partial<Record<string, CalculatorInputs>> = { v1: V1_LINK_BASE, v2: V2_LINK_BASE };
 const baseFor = (version: string) => (version === CURRENT_VERSION ? DEFAULT_INPUTS : FROZEN_BASES[version]);
 
 /** Keeps only the leaves that differ from `base`, so typical links stay short. */

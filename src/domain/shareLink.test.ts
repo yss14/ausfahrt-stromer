@@ -5,16 +5,16 @@ import { decodeShareFragment, encodeShareFragment } from './shareLink';
 describe('share links', () => {
   it('encodes only the fields that differ from the defaults', () => {
     const inputs = { ...DEFAULT_INPUTS, scenario: { ...DEFAULT_INPUTS.scenario, kmPerYear: 25000 } };
-    expect(encodeShareFragment(inputs)).toBe('v2.eyJzY2VuYXJpbyI6eyJrbVBlclllYXIiOjI1MDAwfX0');
+    expect(encodeShareFragment(inputs)).toBe('v3.eyJzY2VuYXJpbyI6eyJrbVBlclllYXIiOjI1MDAwfX0');
   });
 
   it('encodes the defaults as an empty object', () => {
-    expect(encodeShareFragment(DEFAULT_INPUTS)).toBe('v2.e30');
+    expect(encodeShareFragment(DEFAULT_INPUTS)).toBe('v3.e30');
   });
 
   it('restores the shared fields on top of the defaults', () => {
     const decoded = decodeShareFragment(
-      '#v2.eyJpY2UiOnsiZnVlbCI6ImRpZXNlbCJ9LCJldiI6eyJwcmljZUV1ciI6MTg1MDB9fQ',
+      '#v3.eyJpY2UiOnsiZnVlbCI6ImRpZXNlbCJ9LCJldiI6eyJwcmljZUV1ciI6MTg1MDB9fQ',
     );
     expect(decoded).toEqual({
       ...DEFAULT_INPUTS,
@@ -35,6 +35,12 @@ describe('share links', () => {
     expect(decoded?.ice.fuelPriceEurPerL).toBe(1.98);
     expect(decoded?.ev.depreciationPct).toBe(11);
     expect(decoded?.ev.wallboxEur).toBe(1200);
+  });
+
+  it('opens v2 links with the defaults they were created with', () => {
+    const decoded = decodeShareFragment('#v2.eyJzY2VuYXJpbyI6eyJrbVBlclllYXIiOjI1MDAwfX0');
+    expect(decoded?.scenario.kmPerYear).toBe(25000);
+    expect(decoded?.ice.depreciationPct).toBe(9);
   });
 
   it('round-trips nested and nullable fields', () => {
@@ -60,12 +66,12 @@ describe('share links', () => {
 
   it('falls back to defaults for tampered fields', () => {
     const tampered = btoa(JSON.stringify({ scenario: { kmPerYear: 'viel', years: 7 } }));
-    expect(decodeShareFragment(`v2.${tampered}`)?.scenario).toEqual({ ...DEFAULT_INPUTS.scenario, years: 7 });
+    expect(decodeShareFragment(`v3.${tampered}`)?.scenario).toEqual({ ...DEFAULT_INPUTS.scenario, years: 7 });
   });
 
-  // v2 links store their changes relative to these values. If this fails, copy the
-  // old snapshot into shareLinkBases.ts as the v2 base and bump CURRENT_VERSION.
-  it('keeps the defaults that v2 links are based on', () => {
+  // v3 links store their changes relative to these values. If this fails, copy the
+  // old snapshot into shareLinkBases.ts as the v3 base and bump CURRENT_VERSION.
+  it('keeps the defaults that v3 links are based on', () => {
     expect(DEFAULT_INPUTS).toMatchInlineSnapshot(`
       {
         "ev": {
@@ -95,7 +101,7 @@ describe('share links', () => {
         "ice": {
           "annualTaxEur": 98,
           "consumptionLPer100": 6.5,
-          "depreciationPct": 9,
+          "depreciationPct": 10,
           "fuel": "petrol",
           "fuelPriceEurPerL": 2.15,
           "fuelPriceGrowthPct": 3,
